@@ -12,7 +12,13 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: #fbfaf7 url('/assets/fondo.webp') center / cover no-repeat fixed;
+  background: linear-gradient(rgba(251, 250, 247, 0.88), rgba(251, 250, 247, 0.88)),
+    url('/assets/fondo_inicio.webp') center / cover no-repeat;
+}
+
+@media (min-width: 768px) {
+  html, body { overflow: hidden; height: 100%; }
+  body { background: #fbfaf7 url('/assets/fondo_inicio.webp') center / cover no-repeat fixed; }
 }
 
 button,

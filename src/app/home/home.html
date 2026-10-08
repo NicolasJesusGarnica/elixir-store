@@ -1,138 +1,123 @@
-<header class="sticky top-0 z-40 border-b border-[#C8A96A]/40 bg-[#FBFAF7]/85 backdrop-blur-xl">
-  <div class="mx-auto flex h-16 max-w-6xl md:h-20 items-center gap-4 md:gap-8 px-6">
+<header class="sticky top-0 z-40 border-b border-white/5 bg-[#191410]">
+  <div class="mx-auto flex h-20 max-w-[1400px] items-center gap-4 px-6 md:h-24 md:gap-8">
+    <button (click)="menuOpen.set(!menuOpen())" aria-label="Menú" class="text-[#C8A96A] transition active:scale-95 md:hidden">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
     <a href="/" aria-label="Elixir Inicio">
-      <img src="/assets/logo_elixir_completo.webp" alt="Elixir" width="180" height="56" class="h-9 w-auto md:h-14" />
+      <img src="/assets/Logo_Vector.svg" alt="Elixir" width="180" height="56" class="h-12 w-auto invert md:h-[4.5rem]" />
     </a>
-    <nav class="hidden items-center gap-8 text-[15px] text-neutral-600 md:flex">
-      <a routerLink="/asesor" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">Asesoramiento</a>
-      <a routerLink="/perfumes" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">Perfumes</a>
-      <a routerLink="/decants" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">Decants</a>
+    <nav class="hidden items-center gap-8 text-base text-neutral-300 md:flex">
+      <a href="/" class="border-b-2 border-[#C8A96A] pb-1 text-[#C8A96A]">Inicio</a>
+      <a routerLink="/perfumes" class="transition hover:text-[#C8A96A]">Perfumes</a>
+      <a routerLink="/decants" class="transition hover:text-[#C8A96A]">Decants</a>
+      <a href="https://api.whatsapp.com/send/?phone=59172903128&text&type=phone_number&app_absent=0" target="_blank" rel="noopener" class="transition hover:text-[#C8A96A]">Asesoramiento</a>
     </nav>
-    <form class="ml-auto hidden flex-1 justify-center sm:flex" (ngSubmit)="buscar($event)">
-      <div class="relative w-full max-w-md">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <form class="mx-auto hidden w-full max-w-xl flex-1 justify-center sm:flex" (ngSubmit)="buscar($event)">
+      <div class="relative w-full">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input
           name="q"
           [(ngModel)]="query"
           placeholder="Busca tu fragancia…"
-          class="w-full rounded-full border border-black/5 bg-black/[0.04] py-3 pl-11 pr-4 outline-none transition focus:border-black/15 focus:bg-white"
+          class="w-full rounded-full border border-white/15 bg-transparent py-4 pl-12 pr-5 text-base text-neutral-200 placeholder:text-neutral-500 outline-none transition focus:border-[#C8A96A]/60"
         />
       </div>
     </form>
-    <div class="ml-auto flex items-center gap-5 text-neutral-600 md:ml-0">
-      <a href="https://maps.app.goo.gl/8udP4YAx2UHDxBLg7" target="_blank" rel="noopener" aria-label="Ubicación" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    <div class="ml-auto flex items-center gap-5 md:ml-0">
+      <a href="https://maps.app.goo.gl/8udP4YAx2UHDxBLg7" target="_blank" rel="noopener" aria-label="Ubicación" class="hidden text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#E5CDA0] sm:inline-flex">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
       </a>
-      <a href="https://www.instagram.com/elixir_bolivia/" target="_blank" rel="noopener" aria-label="Instagram" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+      <a href="https://www.instagram.com/elixir_bolivia/" target="_blank" rel="noopener" aria-label="Instagram" class="hidden text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#E5CDA0] sm:inline-flex">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a href="https://api.whatsapp.com/send/?phone=59172903128&text&type=phone_number&app_absent=0" target="_blank" rel="noopener" aria-label="WhatsApp" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.4A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+      <a href="https://api.whatsapp.com/send/?phone=59172903128&text&type=phone_number&app_absent=0" target="_blank" rel="noopener" aria-label="WhatsApp" class="hidden text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#E5CDA0] sm:inline-flex">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
       </a>
-      <a href="https://www.facebook.com/vanityenda" target="_blank" rel="noopener" aria-label="Facebook" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 8h3V4h-3a5 5 0 0 0-5 5v3H6v4h3v6h4v-6h3l1-4h-4V9a1 1 0 0 1 1-1Z"/></svg>
+      <a href="https://www.tiktok.com/@elixir_bolivia" target="_blank" rel="noopener" aria-label="TikTok" class="hidden text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#E5CDA0] sm:inline-flex">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
       </a>
-      <a href="https://www.tiktok.com/@elixir_bolivia" target="_blank" rel="noopener" aria-label="TikTok" class="text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#8f6f3f]">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4a5 5 0 0 0 5 5"/></svg>
+      <a href="https://www.facebook.com/vanityenda" target="_blank" rel="noopener" aria-label="Facebook" class="hidden text-[#C8A96A] transition duration-300 hover:scale-110 hover:text-[#E5CDA0] sm:inline-flex">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
       </a>
-      <button (click)="cart.isOpen.set(true)" aria-label="Carrito" class="relative grid size-10 place-items-center rounded-full border border-[#C8A96A] bg-white text-[#C8A96A] transition hover:bg-[#C8A96A] hover:text-white active:scale-95">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
-        @if (cart.count() > 0) {
-          <span class="absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-neutral-900 text-[9px] text-white ring-2 ring-white">{{ cart.count() }}</span>
-        }
+      <span class="mx-1 hidden h-6 w-px bg-white/15 sm:block"></span>
+      <button (click)="cart.isOpen.set(true)" aria-label="Carrito" class="relative text-[#C8A96A] transition hover:text-[#E5CDA0] active:scale-95">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+        <span class="absolute -right-2 -top-2 grid size-4 place-items-center rounded-full bg-[#C8A96A] text-[9px] font-semibold text-[#191410]">{{ cart.count() }}</span>
       </button>
     </div>
   </div>
+  @if (menuOpen()) {
+    <nav class="absolute inset-x-0 top-full z-40 flex flex-col gap-4 border-t border-white/10 bg-[#191410] px-6 py-6 text-base text-neutral-300 shadow-2xl md:hidden">
+      <a href="/" (click)="menuOpen.set(false)" class="w-fit border-b-2 border-[#C8A96A] pb-1 text-[#C8A96A]">Inicio</a>
+      <a routerLink="/perfumes" (click)="menuOpen.set(false)" class="transition hover:text-[#C8A96A]">Perfumes</a>
+      <a routerLink="/decants" (click)="menuOpen.set(false)" class="transition hover:text-[#C8A96A]">Decants</a>
+      <a href="https://api.whatsapp.com/send/?phone=59172903128&text&type=phone_number&app_absent=0" target="_blank" rel="noopener" (click)="menuOpen.set(false)" class="transition hover:text-[#C8A96A]">Asesoramiento</a>
+    </nav>
+  }
 </header>
 
-<main class="mx-auto grid min-h-[calc(100dvh-5rem)] max-w-6xl items-center gap-10 px-6 py-8 md:h-[calc(100dvh-5rem)] md:grid-cols-2 md:overflow-hidden md:py-0">
-  <div class="flex flex-col justify-center">
-    <h1 class="font-serif text-4xl leading-[1.08] tracking-tight md:text-6xl">Encuentra la fragancia que te define.</h1>
-    <p class="mt-5 max-w-md leading-relaxed text-neutral-500">Perfumes originales, decants y asesoría personalizada para descubrir tu aroma ideal.</p>
-    <p class="mt-4 text-[11px] uppercase tracking-[0.2em] text-amber-900/70">Envío a toda Bolivia · Pago contra entrega</p>
-
-    <div class="mt-8 flex divide-x divide-black/10 text-sm text-center">
-      <div class="flex-1 pr-6"><p class="font-serif text-3xl">200+</p><p class="text-neutral-500">Perfumes</p></div>
-      <div class="flex-1 px-6"><p class="font-serif text-3xl">3</p><p class="text-neutral-500">Volúmenes decant</p></div>
-      <div class="flex-1 pl-6"><p class="font-serif text-3xl">24h</p><p class="text-neutral-500">Asesoría IA</p></div>
-    </div>
-
-    <nav class="mt-10 grid w-full grid-cols-3 gap-3">
-      <a routerLink="/perfumes" class="flex flex-col items-center gap-3 rounded-3xl border border-[#C8A96A]/60 bg-white p-5 text-center transition duration-300 hover:-translate-y-1 hover:border-[#C8A96A] hover:bg-[#C8A96A]/10 hover:text-[#8f6f3f] hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] active:scale-[0.97]">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M10 6v3l-3 4v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6l-3-4V6"/></svg>
-        <span class="text-xs tracking-wide">Perfumes</span>
-      </a>
-      <a routerLink="/decants" class="flex flex-col items-center gap-3 rounded-3xl border border-[#C8A96A]/60 bg-white p-5 text-center transition duration-300 hover:-translate-y-1 hover:border-[#C8A96A] hover:bg-[#C8A96A]/10 hover:text-[#8f6f3f] hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] active:scale-[0.97]">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3h6M10 3v5l-4 8a3 3 0 0 0 3 5h6a3 3 0 0 0 3-5l-4-8V3"/></svg>
-        <span class="text-xs tracking-wide">Decants</span>
-      </a>
-      <a routerLink="/asesor" class="flex flex-col items-center gap-3 rounded-3xl border border-[#C8A96A]/60 bg-white p-5 text-center transition duration-300 hover:-translate-y-1 hover:border-[#C8A96A] hover:bg-[#C8A96A]/10 hover:text-[#8f6f3f] hover:shadow-[0_15px_40px_rgba(0,0,0,0.08)] active:scale-[0.97]">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
-        <span class="text-xs tracking-wide">Asesoramiento</span>
-      </a>
-    </nav>
-  </div>
-
-  <div class="flex flex-col justify-center py-6 md:h-full md:py-8">
-    <p class="mb-4 flex items-center justify-center gap-3 font-serif text-lg tracking-[0.2em] uppercase text-[#6d5228]">
-      <span class="h-px w-8 bg-amber-900/30"></span> Novedades <span class="h-px w-8 bg-amber-900/30"></span>
+<main class="relative mx-auto grid min-h-[calc(100dvh-5rem)] max-w-[1400px] items-center gap-10 px-6 py-8 md:h-[calc(100dvh-6rem)] md:overflow-hidden md:py-0">
+  <div class="flex w-full max-w-2xl flex-col items-start justify-center">
+    <p class="flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-[#6d5228]">
+      <span class="h-px w-8 bg-[#C8A96A]"></span> Perfumes originales <span class="h-px w-8 bg-[#C8A96A]"></span>
     </p>
-    <div class="relative aspect-[3/4] w-full overflow-hidden rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.10)] md:aspect-auto md:min-h-0 md:flex-1">
-      @for (p of promos; track p.src; let i = $index) {
-        <img
-          [src]="p.src"
-          [alt]="p.alt"
-          width="900"
-          height="1200"
-          [attr.loading]="i === 0 ? 'eager' : 'lazy'"
-          [attr.fetchpriority]="i === 0 ? 'high' : null"
-          class="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out hover:scale-105"
-          [class.opacity-0]="i !== index()"
-          [class.translate-x-6]="i !== index()"
-          [class.scale-105]="i !== index()"
-          [class.opacity-100]="i === index()"
-        />
-      }
-    </div>
-    <div class="mt-5 flex shrink-0 items-center justify-center gap-4">
-      <button (click)="prev()" aria-label="Anterior" class="grid size-8 place-items-center rounded-full border border-black/10 text-neutral-600 transition hover:bg-black/5 active:scale-95">‹</button>
-      <div class="flex gap-2">
-        @for (p of promos; track p.src; let i = $index) {
-          <button (click)="go(i)" [attr.aria-label]="'Imagen ' + (i + 1)" class="size-2 rounded-full transition" [class]="i === index() ? 'bg-neutral-900' : 'bg-neutral-900/20'"></button>
-        }
+    <h1 class="mt-6 font-serif text-5xl leading-[1.05] tracking-[-0.005em] md:text-7xl">Encuentra la<br /><em class="text-[#b08a4f] font-serif italic">fragancia</em><br />que te define.</h1>
+    <p class="mt-6 max-w-md leading-relaxed text-neutral-500">Perfumes originales, decants y asesoría personalizada para descubrir tu aroma ideal.</p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 text-sm">
+      <div class="flex items-center gap-3">
+        <svg class="text-[#b08a4f]" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3 5 6v5c0 4.5 3 8.2 7 10 4-1.8 7-5.5 7-10V6l-7-3Z"/><path d="m9.5 12 2 2 3.5-4"/></svg>
+        <div><p class="font-serif text-2xl leading-none">200+</p><p class="text-neutral-500">Perfumes</p></div>
       </div>
-      <button (click)="next()" aria-label="Siguiente" class="grid size-8 place-items-center rounded-full border border-black/10 text-neutral-600 transition hover:bg-black/5 active:scale-95">›</button>
+      <span class="h-12 w-[2px] self-center bg-[#8a6d42]/30"></span>
+      <div class="flex items-center gap-3">
+        <svg class="text-[#b08a4f]" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M10 6v3l-3 4v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6l-3-4V6"/></svg>
+        <div><p class="font-serif text-2xl leading-none">3</p><p class="text-neutral-500">Volúmenes decant</p></div>
+      </div>
+      <span class="h-12 w-[2px] self-center bg-[#8a6d42]/30"></span>
+      <div class="flex items-center gap-3">
+        <svg class="text-[#b08a4f]" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M13 7l-4 6h6l-4 5"/></svg>
+        <div><p class="font-serif text-2xl leading-none">24h</p><p class="text-neutral-500">Asesoría IA</p></div>
+      </div>
     </div>
+
+    <a routerLink="/perfumes" class="mt-10 inline-flex w-full justify-center items-center gap-4 rounded-full sm:w-auto sm:justify-start bg-neutral-900 px-8 py-4 text-xs uppercase tracking-[0.25em] text-white transition hover:bg-neutral-800 active:scale-[0.98]">
+      Ver catálogo <span aria-hidden="true">→</span>
+    </a>
+
+    <p class="mt-10 flex items-center gap-3 text-[10px] uppercase tracking-[0.25em] text-neutral-500">
+      <span class="h-px w-8 bg-black/15"></span> Envíos a toda Bolivia · Pago contra entrega <span class="h-px w-8 bg-black/15"></span>
+    </p>
   </div>
 </main>
 
 @if (cart.isOpen()) {
   <div class="fixed inset-0 z-50 bg-black/40" (click)="cart.isOpen.set(false)"></div>
-  <aside class="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col bg-[#FBFAF7] shadow-2xl">
-    <div class="flex items-center justify-between border-b border-black/5 p-6">
-      <h2 class="font-serif text-2xl">Tu pedido</h2>
-      <button (click)="cart.isOpen.set(false)" aria-label="Cerrar" class="grid size-9 place-items-center rounded-full border border-black/10">×</button>
+  <aside class="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col bg-[#191410] text-neutral-200 shadow-2xl">
+    <div class="flex items-center justify-between border-b border-white/10 p-6">
+      <h2 class="font-serif text-2xl text-[#C8A96A]">Tu pedido</h2>
+      <button (click)="cart.isOpen.set(false)" aria-label="Cerrar" class="grid size-9 place-items-center rounded-full border border-white/15 text-[#C8A96A] transition hover:border-[#C8A96A]">×</button>
     </div>
     <div class="flex-1 space-y-4 overflow-y-auto p-6">
       @for (i of cart.itemsList(); track i.id + (i.detail ?? '')) {
         <div class="flex items-center justify-between gap-4">
           <div>
-            <p class="font-medium">{{ i.name }} <span class="text-sm text-neutral-400">{{ i.detail }}</span></p>
+            <p class="font-medium text-neutral-100">{{ i.name }} <span class="text-sm text-neutral-500">{{ i.detail }}</span></p>
             <p class="text-sm text-neutral-500">${{ i.price }} × {{ i.qty }}</p>
           </div>
           <div class="flex items-center gap-2">
-            <button (click)="cart.setQty(i.id, i.detail, i.qty - 1)" class="size-7 rounded-full border border-black/10">−</button>
-            <span>{{ i.qty }}</span>
-            <button (click)="cart.setQty(i.id, i.detail, i.qty + 1)" class="size-7 rounded-full border border-black/10">+</button>
+            <button (click)="cart.setQty(i.id, i.detail, i.qty - 1)" class="size-7 rounded-full border border-white/15 text-[#C8A96A] transition hover:border-[#C8A96A]">−</button>
+            <span class="text-neutral-100">{{ i.qty }}</span>
+            <button (click)="cart.setQty(i.id, i.detail, i.qty + 1)" class="size-7 rounded-full border border-white/15 text-[#C8A96A] transition hover:border-[#C8A96A]">+</button>
           </div>
         </div>
       } @empty {
         <p class="text-neutral-500">Aún no agregas nada.</p>
       }
     </div>
-    <div class="border-t border-black/5 p-6">
-      <p class="flex justify-between text-lg"><span>Total</span><span class="font-serif text-2xl">${{ cart.total() }}</span></p>
-      <a [href]="cart.whatsappUrl('59172903128')" target="_blank" rel="noopener" class="mt-4 block rounded-full bg-neutral-900 py-4 text-center text-white transition active:scale-[0.98]">Pedir por WhatsApp</a>
+    <div class="border-t border-white/10 p-6">
+      <p class="flex justify-between text-lg"><span>Total</span><span class="font-serif text-2xl text-[#C8A96A]">${{ cart.total() }}</span></p>
+      <a [href]="cart.whatsappUrl('59172903128')" target="_blank" rel="noopener" class="mt-4 block rounded-full bg-[#C8A96A] py-4 text-center font-medium text-[#191410] transition hover:bg-[#E5CDA0] active:scale-[0.98]">Pedir por WhatsApp</a>
     </div>
   </aside>
 }
