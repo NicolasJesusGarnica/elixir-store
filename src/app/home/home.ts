@@ -1,21 +1,34 @@
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { CartService } from '../core/cart.service';
+import { Component, computed, effect, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SiteHeader } from '../shared/site-header';
+import { CartDrawer } from '../shared/cart-drawer';
+import { PerfumesService } from '../core/perfumes.service';
+import { SeoService, datosNegocio } from '../core/seo.service';
+import { SITE } from '../../environments';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, SiteHeader, CartDrawer],
   templateUrl: './home.html',
-  styleUrl: './home.css',
 })
 export class Home {
-  constructor(readonly cart: CartService, private router: Router) {}
+  private svc = inject(PerfumesService);
+  private seo = inject(SeoService);
 
-  query = '';
-  menuOpen = signal(false);
-  buscar(e: Event) {
-    e.preventDefault();
-    this.router.navigate(['/perfumes'], { queryParams: { q: this.query } });
+  /** Cifras que salen del catalogo real, no de una promesa. */
+  readonly totalFragancias = computed(() => this.svc.productos().length);
+  readonly totalMarcas = computed(() => this.svc.marcas().length);
+
+  constructor() {
+    effect(() => {
+      const total = this.totalFragancias();
+      this.seo.aplicar({
+        titulo: `${SITE.nombre} — ${SITE.lema} · Perfumes y decants en Bolivia`,
+        descripcion: `${total} fragancias originales en decants de 6, 10 y 20 ml. Elegí por olor, probá en tu piel y comprá el frasco completo si te encantó. Envíos a todo el país y pago contra entrega.`,
+        imagen: SITE.imagen,
+        ruta: '/',
+        jsonLd: datosNegocio(total),
+      });
+    });
   }
 }

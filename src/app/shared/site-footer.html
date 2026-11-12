@@ -1,0 +1,274 @@
+<footer class="relative border-t border-black/15 bg-gradient-to-b from-[#191410] via-[#14100d] to-[#0c0907] text-neutral-300 overflow-hidden">
+  <!-- Hairline dorada superior atmosférica -->
+  <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-[#C8A96A]/60 to-transparent"></div>
+
+  <!-- Luz radial difusa sutil de fondo -->
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(200,169,106,0.05)_0%,transparent_60%)]"></div>
+
+  <div class="relative z-10 mx-auto max-w-[1400px] px-6 py-16 md:py-20">
+    <div class="grid gap-12 md:grid-cols-2 md:gap-x-10 md:gap-y-14 lg:grid-cols-[1.4fr_0.9fr_0.9fr_1fr_1.3fr]">
+      
+      <!-- Columna 1: Marca & Manifiesto Editorial -->
+      <div class="flex flex-col items-start">
+        <a routerLink="/" aria-label="Elixir Perfumería" class="transition active:scale-95">
+          <img src="/assets/logo-white.webp" alt="Elixir" width="124" height="80" class="h-14 w-auto object-contain md:h-20" />
+        </a>
+
+        <h2 class="mt-6 font-serif text-2xl font-normal leading-snug text-white">
+          El Lujo Tiene <em class="font-serif italic text-[#C8A96A]">Aroma</em>
+        </h2>
+
+        <p class="mt-4 max-w-sm text-xs sm:text-sm leading-relaxed text-neutral-400">
+          Decants del perfume original de 6, 10 y 20 ml. Elegís por olor, probás en tu piel y decidís con total libertad.
+        </p>
+
+        <!-- Pastilla de Métricas Reales -->
+        <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-[#C8A96A]/30 bg-white/[0.04] px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C8A96A] shadow-2xs backdrop-blur-xs">
+          <span class="size-1.5 rounded-full bg-[#C8A96A] animate-pulse"></span>
+          <span>{{ fragancias() }} Fragancias</span>
+          <span class="text-white/20">·</span>
+          <span>{{ marcas() }} Marcas</span>
+        </div>
+      </div>
+
+      <!-- Columna 2: Navegación -->
+      <nav aria-label="Navegación del pie">
+        <p class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A96A]">
+          <span class="h-px w-4 bg-[#C8A96A]"></span>
+          <span>Navegación</span>
+        </p>
+        <ul class="mt-6 space-y-3.5 text-sm">
+          <li>
+            <a routerLink="/" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Inicio</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/perfumes" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Perfumes completos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/decants" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Decants artesanales</span>
+            </a>
+          </li>
+          @for (f of familias; track f.etiqueta) {
+            <li>
+              <a routerLink="/perfumes" [queryParams]="{ etiqueta: f.etiqueta }" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+                <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+                <span>{{ f.nombre }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <!-- Columna 3: Colecciones & Géneros -->
+      <nav aria-label="Familias olfativas">
+        <p class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A96A]">
+          <span class="h-px w-4 bg-[#C8A96A]"></span>
+          <span>Colecciones</span>
+        </p>
+        <ul class="mt-6 space-y-3.5 text-sm">
+          <li>
+            <a routerLink="/perfumes" [queryParams]="{ genero: 'Mujer' }" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Fragancias Femeninas</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/perfumes" [queryParams]="{ genero: 'Hombre' }" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Fragancias Masculinas</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/perfumes" [queryParams]="{ genero: 'Unisex' }" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Colección Unisex</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/perfumes" [queryParams]="{ orden: 'destacados' }" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>★ Los Más Destacados</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Columna 4: Marco Legal & Confianza -->
+      <nav aria-label="Marco legal y garantías">
+        <p class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A96A]">
+          <span class="h-px w-4 bg-[#C8A96A]"></span>
+          <span>Legal & Garantías</span>
+        </p>
+        <ul class="mt-6 space-y-3.5 text-sm">
+          <li>
+            <a routerLink="/terminos" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Términos y Condiciones</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/privacidad" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Política de Privacidad</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/reembolsos" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Reembolsos y Garantías</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/cookies" class="group flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-white">
+              <span class="size-1 rounded-full bg-transparent transition-all duration-200 group-hover:bg-[#C8A96A] group-hover:scale-125"></span>
+              <span>Política de Cookies</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Columna 5: Concierge & Contacto -->
+      <div>
+        <p class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A96A]">
+          <span class="h-px w-4 bg-[#C8A96A]"></span>
+          <span>Atelier Concierge</span>
+        </p>
+
+        <!-- Botón Concierge WhatsApp -->
+        <a
+          [href]="whatsappEnlace"
+          target="_blank"
+          rel="noopener"
+          class="group mt-6 flex items-center gap-3.5 rounded-2xl border border-white/10 bg-white/[0.04] p-3 transition duration-200 hover:border-[#C8A96A]/50 hover:bg-white/[0.08] active:scale-[0.98]"
+        >
+          <div class="grid size-10 place-items-center rounded-xl bg-[#C8A96A] text-[#191410] shadow-xs transition-transform duration-200 group-hover:scale-105">
+            <svg class="size-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14c-.24.68-1.39 1.3-1.92 1.38-.5.08-1.15.11-3.7-0.95-3.26-1.35-5.35-4.66-5.51-4.88-.16-.22-1.32-1.75-1.32-3.34 0-1.59.83-2.37 1.13-2.69.3-.32.65-.4 0.87-.4.22 0 .43 0 .62.01.2.01.47-.08.73.55.27.65.92 2.24 1 2.4.08.16.14.35.03.57-.11.22-.16.35-.32.54-.16.19-.34.42-.48.56-.16.16-.33.33-.14.65.19.32.84 1.38 1.8 2.24 1.24 1.1 2.28 1.44 2.61 1.6.32.16.51.14.7-.08.19-.22.81-.95 1.03-1.27.22-.32.43-.27.73-.16.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.14.08.81-.16 1.49z"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-[#C8A96A]">Asesoramiento Directo</span>
+            <span class="font-serif text-sm font-semibold text-white tracking-wide">+591 64380547</span>
+          </div>
+        </a>
+
+        <!-- Redes Sociales Táctiles -->
+        <ul class="mt-5 flex items-center gap-2.5">
+          <li>
+            <a [href]="site.instagram" target="_blank" rel="noopener" aria-label="Instagram" class="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-neutral-400 transition-all duration-200 hover:border-[#C8A96A] hover:bg-[#C8A96A] hover:text-[#191410] active:scale-95 shadow-2xs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </li>
+          <li>
+            <a [href]="site.tiktok" target="_blank" rel="noopener" aria-label="TikTok" class="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-neutral-400 transition-all duration-200 hover:border-[#C8A96A] hover:bg-[#C8A96A] hover:text-[#191410] active:scale-95 shadow-2xs">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.17-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a [href]="site.facebook" target="_blank" rel="noopener" aria-label="Facebook" class="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-neutral-400 transition-all duration-200 hover:border-[#C8A96A] hover:bg-[#C8A96A] hover:text-[#191410] active:scale-95 shadow-2xs">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a [href]="site.maps" target="_blank" rel="noopener" aria-label="Ubicación" class="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-neutral-400 transition-all duration-200 hover:border-[#C8A96A] hover:bg-[#C8A96A] hover:text-[#191410] active:scale-95 shadow-2xs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Horario y Dirección -->
+        <div class="mt-6 space-y-2 text-xs text-neutral-400">
+          <p class="flex items-center gap-2">
+            <svg class="shrink-0 text-[#C8A96A]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>{{ site.dias }} · {{ site.horario }}</span>
+          </p>
+
+          @if (site.direccion) {
+            <a
+              [href]="site.maps"
+              target="_blank"
+              rel="noopener"
+              class="flex items-start gap-2 transition hover:text-[#C8A96A]"
+            >
+              <svg class="mt-0.5 shrink-0 text-[#C8A96A]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              <span>{{ site.direccion }}</span>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Tira de Garantías y Envíos (Trust Badges) -->
+    <div class="mt-14 grid grid-cols-1 gap-4 border-t border-white/10 pt-8 sm:grid-cols-3">
+      <div class="flex items-center gap-3">
+        <div class="grid size-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-[#C8A96A]">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-white">Envíos a toda Bolivia</p>
+          <p class="text-[11px] text-neutral-400">Coordinamos por WhatsApp o retiro local en Potosí</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="grid size-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-[#C8A96A]">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-white">100% Original Garantizado</p>
+          <p class="text-[11px] text-neutral-400">Decants extraídos del frasco de autor original</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="grid size-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-[#C8A96A]">
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-white">Pago Flexible & Seguro</p>
+          <p class="text-[11px] text-neutral-400">Pago contra entrega o código QR simple</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Descargo Expreso de Marcas Registradas y Propiedad Industrial -->
+    <div class="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-[11px] leading-relaxed text-neutral-400">
+      <p class="font-bold uppercase tracking-[0.2em] text-[#C8A96A] text-[10px] mb-1.5 flex items-center gap-1.5">
+        <span class="size-1 rounded-full bg-[#C8A96A]"></span>
+        <span>Descargo de Marcas y Responsabilidad Legal</span>
+      </p>
+      <p>
+        Elixir Perfumería es una boutique independiente dedicada al fraccionamiento artesanal de fragancias originales y perfumes de colección en Bolivia. Las marcas, imagotipos y nombres de perfumes pertenecen exclusivamente a sus respectivos titulares. Su mención en este catálogo tiene un fin meramente ilustrativo y descriptivo del perfil olfativo auténtico (Uso Nominativo Justificado), sin implicar patrocinio, afiliación ni vínculo comercial con los fabricantes matrices. Cumplimiento amparado bajo la Ley N° 453 de Derechos de las Usuarias y los Usuarios y de las Consumidoras y los Consumidores del Estado Plurinacional de Bolivia.
+      </p>
+    </div>
+  </div>
+
+  <!-- Barra de Copyright Sub-footer -->
+  <div class="border-t border-white/8 bg-[#0d0a08]/80">
+    <div class="mx-auto flex max-w-[1400px] flex-col gap-3 px-6 py-5 text-xs text-neutral-400 sm:flex-row sm:items-center sm:justify-between">
+      <p class="flex items-center gap-2">
+        <span>© {{ anio }} {{ site.nombre }}.</span>
+        <span class="text-neutral-600">·</span>
+        <span>Todos los derechos reservados.</span>
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 text-[11px] text-neutral-400">
+        <a routerLink="/terminos" class="hover:text-[#C8A96A] transition">Términos</a>
+        <span class="size-1 rounded-full bg-[#C8A96A]/60"></span>
+        <a routerLink="/privacidad" class="hover:text-[#C8A96A] transition">Privacidad</a>
+        <span class="size-1 rounded-full bg-[#C8A96A]/60"></span>
+        <a routerLink="/reembolsos" class="hover:text-[#C8A96A] transition">Reembolsos</a>
+        <span class="size-1 rounded-full bg-[#C8A96A]/60"></span>
+        <a routerLink="/cookies" class="hover:text-[#C8A96A] transition">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>

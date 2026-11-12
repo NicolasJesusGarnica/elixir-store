@@ -1,0 +1,168 @@
+<app-site-header />
+<app-cart-drawer />
+
+<main class="min-h-screen bg-[#FBFAF7] text-[#191410] pt-28 pb-24">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    
+    <!-- Breadcrumb & Header Editorial -->
+    <div class="mb-10">
+      <nav aria-label="Ruta de navegación" class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#8a6d42]">
+        <a routerLink="/" class="hover:text-[#191410] transition">Inicio</a>
+        <span class="text-neutral-400">/</span>
+        <span class="text-[#191410]">Política de Cookies</span>
+      </nav>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-[#C8A96A]/40 bg-[#C8A96A]/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+          <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+          Almacenamiento Técnico y Transparencia
+        </span>
+        <span class="text-xs text-neutral-500 font-medium">Última actualización: {{ fechaActualizacion }}</span>
+      </div>
+
+      <h1 class="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#191410] leading-tight">
+        Política de Cookies y Almacenamiento Local
+      </h1>
+      <p class="mt-4 text-base sm:text-lg leading-relaxed text-neutral-700">
+        Esta política describe el funcionamiento y los propósitos del almacenamiento técnico en tu navegador al interactuar con <strong>{{ site.nombre }}</strong>. Mantenemos una política estricta de cero rastreo invasivo.
+      </p>
+    </div>
+
+    <!-- Bloque Destacado: Cero Rastreadores de Publicidad -->
+    <div class="mb-12 rounded-2xl border border-emerald-800/30 bg-emerald-950/5 p-6 sm:p-8">
+      <div class="flex items-start gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-800 text-white font-bold" aria-hidden="true">
+          ✓
+        </span>
+        <div>
+          <h2 class="font-serif text-xl font-normal text-[#191410]">
+            Cero Rastreadores Publicitarios de Terceros
+          </h2>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-neutral-700">
+            <strong>Elixir Perfumería no emplea cookies de perfilamiento comercial, píxeles de retargeting de redes sociales ni redes publicitarias de terceros que sigan tu navegación entre páginas web.</strong> Toda tecnología de almacenamiento en este sitio tiene un propósito 100% técnico y funcional para permitirte armar tu bolsa de compras y guardar tus preferencias de navegación.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secciones Detalladas -->
+    <div class="space-y-10 text-sm sm:text-base leading-relaxed text-neutral-800">
+
+      <!-- Sección 1 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">1</span>
+          ¿Qué son las Cookies y el Almacenamiento Local (Local Storage)?
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Una cookie o clave de almacenamiento local (Local Storage) es un pequeño archivo o registro de texto que un sitio web guarda en tu navegador al visitarlo. Estas tecnologías permiten que la página recuerde información sobre tu visita de forma segura en tu propio dispositivo.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 2 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">2</span>
+          Tabla de Claves de Almacenamiento Utilizadas en Elixir
+        </h2>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b border-black/10 bg-neutral-50 text-[#191410]">
+                <th class="p-3 font-bold uppercase tracking-wider">Clave / Nombre</th>
+                <th class="p-3 font-bold uppercase tracking-wider">Tipo</th>
+                <th class="p-3 font-bold uppercase tracking-wider">Duración</th>
+                <th class="p-3 font-bold uppercase tracking-wider">Finalidad Estricta</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-black/5 text-neutral-700">
+              <tr>
+                <td class="p-3 font-mono font-medium text-xs text-[#8a6d42]">elixir-carrito-v1</td>
+                <td class="p-3">Local Storage (Técnico)</td>
+                <td class="p-3">Persistente</td>
+                <td class="p-3">Recuerda los decants y fragancias agregados a tu bolsa para que no se borren al recargar o cambiar de página.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono font-medium text-xs text-[#8a6d42]">elixir_cookies_ok</td>
+                <td class="p-3">Local Storage (Preferencia)</td>
+                <td class="p-3">1 año</td>
+                <td class="p-3">Registra que el usuario ya ha tomado conocimiento del aviso de almacenamiento técnico.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono font-medium text-xs text-[#8a6d42]">elixir_consent_log</td>
+                <td class="p-3">Local Storage (Legal)</td>
+                <td class="p-3">Persistente</td>
+                <td class="p-3">Guarda la constancia y código de trazabilidad de los términos aceptados al generar un pedido.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-mono font-medium text-xs text-[#8a6d42]">firebase:authUser:...</td>
+                <td class="p-3">IndexedDB / Local Storage</td>
+                <td class="p-3">Sesión activa</td>
+                <td class="p-3">Exclusivo del personal administrativo para autenticar el acceso seguro al panel de gestión (/admin).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Sección 3 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">3</span>
+          ¿Necesitamos pedir tu consentimiento para estas tecnologías?
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Bajo las normativas internacionales de protección de datos (Directiva ePrivacy, RGPD y leyes equivalentes de América Latina), las cookies y mecanismos de almacenamiento clasificados como <strong>estrictamente necesarios para la prestación de un servicio expresamente solicitado por el usuario</strong> (como la cesta de compras o el mantenimiento de sesión seguro) están exentos de requerir bloqueo previo mediante muros invasivos o "cookie walls".
+          </p>
+          <p>
+            No obstante, en Elixir cumplimos rigurosamente con el <strong>deber de información y transparencia</strong>, poniendo a tu disposición un aviso discreto y esta política exhaustiva para que conozcas exactamente qué se almacena en tu dispositivo.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 4 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">4</span>
+          Cómo gestionar o borrar el almacenamiento local en tu navegador
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Si deseas eliminar los datos guardados en cualquier momento, puedes hacerlo de forma sencilla desde la configuración de tu navegador:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-neutral-700">
+            <li><strong>Google Chrome / Brave / Edge:</strong> Menú &gt; Configuración &gt; Privacidad y seguridad &gt; Borrar datos de navegación &gt; Seleccionar "Cookies y otros datos de sitios".</li>
+            <li><strong>Safari (iOS / macOS):</strong> Ajustes o Preferencias &gt; Safari &gt; Avanzado &gt; Datos de sitios web &gt; Eliminar todos los datos de sitios web.</li>
+            <li><strong>Mozilla Firefox:</strong> Menú &gt; Ajustes &gt; Privacidad y seguridad &gt; Cookies y datos del sitio &gt; Limpiar datos.</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Navegación cruzada -->
+    <div class="mt-14 rounded-2xl border border-[#C8A96A]/30 bg-white p-6 sm:p-8">
+      <h3 class="font-serif text-lg text-[#191410] font-normal">Documentos Legales Complementarios</h3>
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <a routerLink="/terminos" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Términos y Condiciones</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Uso y venta de fragancias</span>
+        </a>
+        <a routerLink="/privacidad" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Privacidad</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Tratamiento y protección de datos</span>
+        </a>
+        <a routerLink="/reembolsos" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Reembolsos</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Garantías y sustitución</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<app-site-footer />

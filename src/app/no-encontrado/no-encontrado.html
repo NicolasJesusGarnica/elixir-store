@@ -1,0 +1,36 @@
+<div class="flex min-h-[100dvh] flex-col bg-[#fbfaf7]">
+  <app-site-header />
+
+  <main class="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-20 text-center">
+    <p class="font-serif text-7xl leading-none text-[#C8A96A] md:text-8xl">404</p>
+
+    <h1 class="mt-6 font-serif text-3xl leading-tight text-[#191410] md:text-4xl">
+      Esta página no existe
+    </h1>
+
+    <p class="mt-4 max-w-md leading-relaxed text-neutral-600">
+      Puede que el link esté viejo o que la fragancia ya no esté en el catálogo.
+      Probá buscando por nombre o por marca.
+    </p>
+
+    <div class="mt-9 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
+      <a
+        routerLink="/perfumes"
+        class="inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#191410] px-8 py-4 text-xs uppercase tracking-[0.25em] text-[#C8A96A] transition hover:bg-black active:scale-[0.98] sm:w-auto"
+      >Ir al catálogo <span aria-hidden="true">→</span></a>
+
+      <a
+        [href]="whatsapp"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex w-full items-center justify-center gap-3 rounded-full border border-[#191410] px-8 py-4 text-xs uppercase tracking-[0.25em] text-[#191410] transition hover:bg-[#191410]/5 active:scale-[0.98] sm:w-auto"
+      >Preguntar por WhatsApp</a>
+    </div>
+
+    <p class="mt-10 text-[10px] uppercase tracking-[0.25em] text-neutral-600">
+      Envíos a toda Bolivia · Pago contra entrega
+    </p>
+  </main>
+</div>
+
+<app-cart-drawer />

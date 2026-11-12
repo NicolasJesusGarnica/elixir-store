@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function esAdmin() {
+      return request.auth != null
+        && request.auth.token.email in [
+          'elixir_perfumeria@nixus.es',
+          'nixus_admin@nixus.es'
+        ];
+    }
+
+    match /perfumes/{allPaths=**} {
+      allow read: if true;
+      allow write: if esAdmin()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType == 'image/webp';
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

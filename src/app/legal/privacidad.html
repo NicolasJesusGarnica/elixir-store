@@ -1,0 +1,163 @@
+<app-site-header />
+<app-cart-drawer />
+
+<main class="min-h-screen bg-[#FBFAF7] text-[#191410] pt-28 pb-24">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    
+    <!-- Breadcrumb & Header Editorial -->
+    <div class="mb-10">
+      <nav aria-label="Ruta de navegación" class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#8a6d42]">
+        <a routerLink="/" class="hover:text-[#191410] transition">Inicio</a>
+        <span class="text-neutral-400">/</span>
+        <span class="text-[#191410]">Política de Privacidad</span>
+      </nav>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-[#C8A96A]/40 bg-[#C8A96A]/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+          <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+          Protección de Datos y Habeas Data
+        </span>
+        <span class="text-xs text-neutral-500 font-medium">Última actualización: {{ fechaActualizacion }}</span>
+      </div>
+
+      <h1 class="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#191410] leading-tight">
+        Política de Privacidad y Tratamiento de Datos
+      </h1>
+      <p class="mt-4 text-base sm:text-lg leading-relaxed text-neutral-700">
+        En <strong>{{ site.nombre }}</strong> consideramos la privacidad de nuestros clientes un valor esencial de nuestra experiencia boutique. Nos regimos por el <strong>principio de minimización de datos</strong>: no recopilamos información que no sea estrictamente indispensable para procesar y despachar tus pedidos.
+      </p>
+    </div>
+
+    <!-- Bloque Destacado: Sin Cuentas Obligatorias -->
+    <div class="mb-12 rounded-2xl border border-[#C8A96A]/50 bg-white p-6 sm:p-8 shadow-sm">
+      <div class="flex items-start gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-[#C8A96A]/20 text-[#8a6d42]" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </span>
+        <div>
+          <h2 class="font-serif text-xl font-normal text-[#191410]">
+            Navegación Libre y Sin Registro Forzoso de Usuario
+          </h2>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-neutral-600">
+            Nuestros clientes no necesitan registrar contraseñas ni almacenar datos de tarjetas de crédito o débito en nuestra plataforma. El acceso al catálogo, comparador de notas y cálculo de bolsa es completamente abierto. Toda coordinación de despacho se efectúa directamente a través del canal oficial de WhatsApp del Atelier.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secciones de Privacidad -->
+    <div class="space-y-10 text-sm sm:text-base leading-relaxed text-neutral-800">
+
+      <!-- Sección 1 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">1</span>
+          Responsable del Tratamiento
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            El responsable del tratamiento de los datos personales suministrados para compras es <strong>Elixir Perfumería</strong>, con domicilio en {{ site.direccion }}, Potosí, Bolivia.
+          </p>
+          <p>
+            Para consultas relacionadas con la privacidad o el ejercicio de derechos sobre sus datos, puede comunicarse al canal oficial de WhatsApp: <strong>+591 64380547</strong>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 2 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">2</span>
+          Datos que Recabamos y Finalidad Específica
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Únicamente recabamos los datos que usted voluntariamente proporciona al momento de formular una orden a través de WhatsApp:
+          </p>
+          <ul class="list-disc pl-5 space-y-2 text-neutral-700">
+            <li><strong>Nombre y Apellido:</strong> Requerido para la guía de encomienda y rotulación del paquete.</li>
+            <li><strong>Número telefónico (WhatsApp):</strong> Para el envío de confirmación, fotografía del paquete preparado, guía de transporte y resolución de incidencias.</li>
+            <li><strong>Ciudad, departamento y dirección de destino o retiro:</strong> Para la asignación correcta del courier o transportadora.</li>
+          </ul>
+          <p>
+            <strong>Finalidad exclusiva:</strong> Estos datos se utilizan pura y exclusivamente para coordinar el pago, empaquetar y entregar su pedido. <strong>Bajo ningún concepto vendemos, comercializamos, alquilamos ni cedemos sus datos a terceros con fines publicitarios o mercadotécnicos.</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">3</span>
+          Registro de Consentimiento y Trazabilidad
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Al solicitar su pedido desde nuestra plataforma web hacia WhatsApp, el enlace traslada de forma transparente el detalle de los perfumes seleccionados y el importe total. En el pie de la bolsa de compras se informa de manera previa y visible el enlace a los Términos y Condiciones y a esta Política de Privacidad.
+          </p>
+          <p>
+            La remisión voluntaria del mensaje de WhatsApp por parte del usuario formaliza el consentimiento informado sobre las condiciones comerciales y de entrega, garantizando un historial fidedigno e inalterable entre ambas partes ante cualquier requerimiento de autoridades de protección al consumidor (Ley N° 453).
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 4 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">4</span>
+          Derechos ARCO y Revocación de Consentimiento
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Todo cliente tiene derecho en cualquier momento a:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-neutral-700">
+            <li><strong>Acceso:</strong> Consultar qué datos de contacto suyos mantenemos en nuestros registros de pedidos.</li>
+            <li><strong>Rectificación:</strong> Corregir o actualizar números de teléfono o direcciones de entrega.</li>
+            <li><strong>Cancelación / Supresión:</strong> Solicitar el borrado de su número telefónico de nuestras listas de WhatsApp una vez completada la entrega.</li>
+            <li><strong>Oposición:</strong> Solicitar no recibir avisos de nuevos ingresos o reposiciones de stock.</li>
+          </ul>
+          <p>
+            Para ejercer cualquiera de estos derechos basta con enviar un mensaje de WhatsApp a nuestro número <strong>+591 64380547</strong> indicando su solicitud. Atenderemos la petición en un plazo máximo de 24 horas hábiles.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 5 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">5</span>
+          Seguridad de la Información
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Implementamos protocolos de conexión cifrada SSL/TLS (HTTPS) en la totalidad de nuestro sitio web. No procesamos pagos con tarjeta de crédito dentro de la web ni almacenamos CVV o números de cuenta bancaria. Todas las transferencias por QR Simple son ejecutadas directamente por el usuario desde la aplicación bancaria de su entidad financiera de confianza.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Navegación cruzada -->
+    <div class="mt-14 rounded-2xl border border-[#C8A96A]/30 bg-white p-6 sm:p-8">
+      <h3 class="font-serif text-lg text-[#191410] font-normal">Documentos Legales Complementarios</h3>
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <a routerLink="/terminos" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Términos y Condiciones</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Uso y venta de fragancias</span>
+        </a>
+        <a routerLink="/reembolsos" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Reembolsos</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Garantías y sustitución</span>
+        </a>
+        <a routerLink="/cookies" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Cookies</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Almacenamiento técnico local</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<app-site-footer />

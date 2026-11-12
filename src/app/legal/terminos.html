@@ -1,0 +1,196 @@
+<app-site-header />
+<app-cart-drawer />
+
+<main class="min-h-screen bg-[#FBFAF7] text-[#191410] pt-28 pb-24">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    
+    <!-- Breadcrumb & Header Editorial -->
+    <div class="mb-10">
+      <nav aria-label="Ruta de navegación" class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#8a6d42]">
+        <a routerLink="/" class="hover:text-[#191410] transition">Inicio</a>
+        <span class="text-neutral-400">/</span>
+        <span class="text-[#191410]">Términos y Condiciones</span>
+      </nav>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-[#C8A96A]/40 bg-[#C8A96A]/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+          <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+          Marco Legal y Comercial
+        </span>
+        <span class="text-xs text-neutral-500 font-medium">Última actualización: {{ fechaActualizacion }}</span>
+      </div>
+
+      <h1 class="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#191410] leading-tight">
+        Términos y Condiciones de Uso y Venta
+      </h1>
+      <p class="mt-4 text-base sm:text-lg leading-relaxed text-neutral-700">
+        Bienvenido a <strong>{{ site.nombre }}</strong>. El presente contrato describe los términos, condiciones y salvaguardas que rigen el uso de este portal web, la adquisición de fragancias y decants originales, y las relaciones comerciales acordadas entre Elixir y sus clientes.
+      </p>
+    </div>
+
+    <!-- Alerta Destacada: Descargo de Responsabilidad de Marcas -->
+    <div class="mb-12 rounded-2xl border-2 border-[#C8A96A]/60 bg-[#191410] p-6 sm:p-8 text-neutral-200 shadow-xl">
+      <div class="flex items-start gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-[#C8A96A] text-[#191410] font-serif font-bold text-lg" aria-hidden="true">
+          !
+        </span>
+        <div>
+          <h2 class="font-serif text-xl font-normal text-white">
+            Descargo Expreso de Marcas Registradas y Propiedad Industrial
+          </h2>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-neutral-300">
+            <strong>Elixir Perfumería es una empresa y boutique completamente independiente.</strong> No somos distribuidores autorizados, licenciatarios oficiales ni mantenemos vínculos comerciales, de asociación, auspicio o patrocinio con ninguna de las casas matrices o firmas diseñadoras citadas en este catálogo (incluyendo de forma enunciativa pero no limitativa a Dior, Chanel, Creed, Tom Ford, Lattafa, Afnan, Mancera, etc.).
+          </p>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-neutral-300">
+            Todas las marcas registradas, logotipos, nombres comerciales y denominaciones distintivas son propiedad exclusiva de sus respectivos titulares de propiedad industrial. Su inclusión en este sitio web tiene carácter <strong>estrictamente nominativo, descriptivo y funcional (Uso Nominativo Justificado)</strong> conforme al principio de agotamiento de marca, con el único fin de informar con veracidad y transparencia al consumidor sobre la identidad y notas de la fragancia original de la cual ha sido extraído cada decant artesanal.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuerpo del Contrato Legal -->
+    <div class="space-y-12 text-sm sm:text-base leading-relaxed text-neutral-800">
+
+      <!-- Sección 1 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">1</span>
+          Identificación del Titular del Negocio
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            El portal web <strong>{{ site.url }}</strong> es operado y administrado por <strong>Elixir Perfumería</strong>, con domicilio de exhibición y entrega en {{ site.direccion }}, Potosí, Estado Plurinacional de Bolivia.
+          </p>
+          <p>
+            Para cualquier comunicación oficial, asesoría personalizada de nuestro concierge o consultas contractuales, el canal directo es nuestra línea corporativa de WhatsApp al <strong>+591 64380547</strong> o nuestras redes oficiales habilitadas en el portal.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 2 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">2</span>
+          Naturaleza de los Productos: Decants y Perfumes de Colección
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            En Elixir comercializamos dos categorías claras de productos:
+          </p>
+          <ul class="list-disc pl-5 space-y-2 text-neutral-700">
+            <li>
+              <strong>Decants o Fracciones Artesanales (6 ml, 10 ml y 20 ml):</strong> Son porciones del perfume original extraídas manualmente de frascos comerciales auténticos y trasvasadas con pipetas y atomizadores estériles de vidrio de alta calidad. Cada decant está diseñado para permitir al cliente probar, evaluar en piel y convivir con la fragancia antes de invertir en una botella de gran tamaño.
+            </li>
+            <li>
+              <strong>Frascos Completos de Presentación de Fábrica:</strong> Perfumes nuevos, precintados y en su caja original según la disponibilidad informada.
+            </li>
+          </ul>
+          <p>
+            <strong>Garantía de pureza:</strong> Bajo ninguna circunstancia Elixir altera, diluye con alcohol añadido, mezcla con aceites ni adultera la fragancia genuina. El líquido contenido en cada decant corresponde en un 100% al lote original adquirido en el mercado legal.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 3 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">3</span>
+          Proceso de Compra, Precios y Medios de Pago
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            <strong>Moneda y Precios:</strong> Todos los precios publicados en este sitio web están expresados en Bolivianos (Bs). Los precios incluyen el decant de vidrio seleccionado, el atomizador correspondiente y el etiquetado identificativo de autor.
+          </p>
+          <p>
+            <strong>Perfeccionamiento de la Orden:</strong> El cliente selecciona los artículos en el carrito virtual y procede al enlace de WhatsApp oficial. La orden se considera perfeccionada una vez que ambas partes confirman los datos de entrega, el método de pago y el comprobante respectivo.
+          </p>
+          <p>
+            <strong>Métodos de Pago Autorizados:</strong>
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-neutral-700">
+            <li>Transferencia bancaria directa vía <strong>QR Simple</strong> (validada al instante).</li>
+            <li><strong>Pago contra entrega</strong> exclusivamente aplicable en retiros presenciales en Potosí o ciudades con mensajería directa autorizada.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Sección 4 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">4</span>
+          Políticas de Envío y Despacho en Bolivia
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Realizamos despachos a todos los departamentos de Bolivia (La Paz, Santa Cruz, Cochabamba, Potosí, Oruro, Chuquisaca, Tarija, Beni y Pando) a través de empresas de encomiendas y couriers certificados.
+          </p>
+          <ul class="list-disc pl-5 space-y-2 text-neutral-700">
+            <li>
+              <strong>Embalaje Protegido:</strong> Cada decant es empacado con plástico de burbujas de alta densidad y cajas reforzadas para evitar roturas o derrames accidentales provocados por la manipulación y la presión atmosférica del transporte.
+            </li>
+            <li>
+              <strong>Tiempos de Despacho:</strong> Los pedidos confirmados antes de las 14:00 se despachan en un lapso de 24 a 48 horas hábiles. Se remitirá el comprobante de guía para seguimiento en línea.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Sección 5 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">5</span>
+          Marco Legal y Cumplimiento de la Ley N° 453 (Bolivia)
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Las relaciones comerciales formalizadas a través de este portal se amparan en los principios de la <strong>Ley N° 453 del Estado Plurinacional de Bolivia</strong> (Ley General de los Derechos de las Usuarias y los Usuarios y de las Consumidoras y los Consumidores):
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-neutral-700">
+            <li>Derecho a recibir información clara, verídica, oportuna y completa sobre los productos adquiridos.</li>
+            <li>Derecho a la protección contra publicidad engañosa o prácticas abusivas.</li>
+            <li>Derecho al trato equitativo, respetuoso y no discriminatorio.</li>
+            <li>Derecho a la reclamación y resolución expedita ante fallas atribuibles al proveedor.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Sección 6 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">6</span>
+          Resolución de Controversias y Jurisdicción
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Ante cualquier duda, disconformidad o evento inesperado con su pedido, ambas partes acuerdan acudir en primera instancia a la resolución amistosa y concertada a través del canal de atención de nuestro Atelier Concierge. En caso de no alcanzarse un acuerdo, las partes se someten a las instancias administrativas competentes del Viceministerio de Defensa del Usuario y del Consumidor y a la jurisdicción de los tribunales ordinarios de la ciudad de Potosí, Bolivia.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Navegación cruzada a otros documentos legales -->
+    <div class="mt-14 rounded-2xl border border-[#C8A96A]/30 bg-white p-6 sm:p-8">
+      <h3 class="font-serif text-lg text-[#191410] font-normal">Documentos Legales Complementarios</h3>
+      <p class="mt-1 text-xs text-neutral-600">Revisa nuestras demás políticas de cumplimiento y transparencia:</p>
+      
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <a routerLink="/privacidad" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Privacidad</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Tratamiento y protección de datos</span>
+        </a>
+        <a routerLink="/reembolsos" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Reembolsos</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Garantías por rotura y fugas</span>
+        </a>
+        <a routerLink="/cookies" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Cookies</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Almacenamiento técnico local</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<app-site-footer />

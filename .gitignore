@@ -42,3 +42,27 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Credenciales y archivos de entorno: NUNCA subir al repo
+.env
+.env.*
+!.env.example
+src/environments.ts
+!src/environments.example.ts
+
+# Temporary processing, scratch & image dumps
+temp_*/
+temp_*.*
+galeria_revision.html
+public/prueba/
+.impeccable/
+mcp_config.json
+.agents/mcp_config.json
+scripts/__pycache__/
+scripts/*.jpg
+scripts/*.png
+scripts/*.webp
+scripts/*.avif
+scripts/*.pdf
+scripts/*.json
+

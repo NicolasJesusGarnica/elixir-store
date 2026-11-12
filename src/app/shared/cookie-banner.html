@@ -1,0 +1,32 @@
+@if (visible()) {
+  <aside
+    role="region"
+    aria-label="Aviso de privacidad y almacenamiento técnico"
+    class="fixed inset-x-4 bottom-4 z-40 mx-auto max-w-xl animate-[elixir-toast_.36s_cubic-bezier(0.16,1,0.3,1)_both] rounded-2xl border border-[#C8A96A]/40 bg-[#191410]/95 p-4 sm:p-5 text-neutral-200 shadow-2xl backdrop-blur-md sm:bottom-6"
+  >
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div class="flex items-start gap-3 min-w-0">
+        <span class="grid size-8 shrink-0 place-items-center rounded-xl bg-[#C8A96A]/20 text-[#C8A96A]" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </span>
+        <div class="min-w-0 text-xs sm:text-xs leading-relaxed text-neutral-300">
+          <p class="font-medium text-white">Transparencia y Privacidad</p>
+          <p class="mt-0.5 text-neutral-400">
+            Utilizamos almacenamiento técnico local necesario para mantener tus decants en el carrito sin rastreadores publicitarios invasivos. Consulta nuestra
+            <a routerLink="/cookies" class="text-[#C8A96A] underline hover:text-[#d8bd7e] focus:outline-none focus:ring-1 focus:ring-[#C8A96A] rounded-xs">Política de Cookies</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+        <button
+          type="button"
+          (click)="aceptar()"
+          class="rounded-full bg-[#C8A96A] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#191410] shadow-sm transition hover:bg-[#d8bd7e] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#C8A96A]"
+        >
+          Entendido
+        </button>
+      </div>
+    </div>
+  </aside>
+}

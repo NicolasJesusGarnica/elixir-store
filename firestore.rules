@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Unico lugar donde vive la lista de administradores.
+    // Si se agrega un correo, tambien hay que agregarlo en:
+    //   src/environments.ts  (ADMIN_EMAILS)
+    //   storage.rules
+    //   Worker -> variable ADMIN_EMAILS
+    function esAdmin() {
+      return request.auth != null
+        && request.auth.token.email in [
+          'elixir_perfumeria@nixus.es',
+          'nixus_admin@nixus.es'
+        ];
+    }
+
+    // Catalogo de fragancias.
+    match /perfumes/{id} {
+      allow read: if true;          // publico: la tienda lo lee sin sesion
+      allow write: if esAdmin();     // escritura solo desde el panel
+    }
+
+    // Banners de novedades y promociones.
+    // Sin este bloque, la pagina /novedades caia en 403 y terminaba mostrando
+    // los banners hardcodeados: lo que se carga desde el panel no se publicaba.
+    match /novedades/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+
+    // Cualquier otra coleccion queda bloqueada (con rules_version '2' el
+    // denegar por defecto ya es el comportamiento, queda explicito para clarity).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

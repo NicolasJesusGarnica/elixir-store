@@ -1,0 +1,1002 @@
+<div class="min-h-[100dvh] bg-[#fbfaf7]">
+  <app-site-header />
+
+  <main class="mx-auto max-w-[1240px] px-6 pb-28 pt-6 md:pb-20 md:pt-8">
+    <!-- Breadcrumb / Volver al catálogo -->
+    <div class="flex items-center justify-between">
+      <a
+        routerLink="/perfumes"
+        (click)="volverAlCatalogo(); $event.preventDefault()"
+        class="group inline-flex items-center gap-2.5 rounded-full border border-black/8 bg-white/70 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6d42] shadow-2xs backdrop-blur transition-all duration-200 hover:border-[#C8A96A] hover:bg-white hover:text-[#191410] active:scale-95 cursor-pointer"
+      >
+        <svg class="size-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        <span>Volver al catálogo</span>
+      </a>
+
+      @if (producto(); as p) {
+        <span class="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-neutral-600">
+          <span>Decants Exclusivos</span>
+          <span class="size-1 rounded-full bg-[#C8A96A]"></span>
+          <span>Elixir Bolivia</span>
+        </span>
+      }
+    </div>
+
+    @if (producto(); as p) {
+      <div class="mt-8 grid items-start gap-10 lg:grid-cols-[1.05fr_1.1fr] lg:gap-16">
+        <!-- Columna Izquierda: Vitrina de Imagen + Perfil Sensorial (Desktop) -->
+        <div class="flex flex-col items-center lg:items-start w-full">
+          <div class="flex flex-col-reverse items-start gap-4 sm:flex-row justify-center lg:justify-start w-full">
+            @if (p.imagenes.length > 1) {
+              <div class="flex gap-3 sm:flex-col shrink-0">
+                @for (img of p.imagenes; track img; let i = $index) {
+                  <button
+                    (click)="foto.set(i)"
+                    [attr.aria-label]="'Ver imagen ' + (i + 1)"
+                    class="size-16 sm:size-20 overflow-hidden rounded-2xl border-2 bg-gradient-to-b from-[#f8f5f0] to-[#e9e1d4] p-1 shadow-2xs transition-all active:scale-95"
+                    [class.border-[#C8A96A]]="foto() === i"
+                    [class.shadow-[0_0_0_3px_rgba(200,169,106,0.25)]]="foto() === i"
+                    [class.border-black/8]="foto() !== i"
+                    [class.opacity-70]="foto() !== i"
+                    [class.hover:opacity-100]="foto() !== i"
+                  >
+                    <img [src]="img" [alt]="p.nombre" width="80" height="100" loading="lazy" class="h-full w-full object-contain p-1" />
+                  </button>
+                }
+
+                <div class="mt-1 flex items-center justify-between px-1 text-xs text-neutral-600">
+                  <button (click)="anteriorFoto(p.imagenes.length)" aria-label="Imagen anterior" class="grid size-8 place-items-center rounded-full border border-black/8 bg-white/70 transition hover:border-[#C8A96A] hover:bg-white hover:text-[#191410] active:scale-90">‹</button>
+                  <span class="text-[11px] font-medium tracking-wider">{{ foto() + 1 }}/{{ p.imagenes.length }}</span>
+                  <button (click)="siguienteFoto(p.imagenes.length)" aria-label="Imagen siguiente" class="grid size-8 place-items-center rounded-full border border-black/8 bg-white/70 transition hover:border-[#C8A96A] hover:bg-white hover:text-[#191410] active:scale-90">›</button>
+                </div>
+              </div>
+            }
+
+            <!-- Vitrina Principal de la Botella con Podio e Iluminación Estudio -->
+            <div
+              (mouseenter)="onMouseEnter()"
+              (mouseleave)="onMouseLeave()"
+              (mousemove)="onMouseMove($event)"
+              (click)="abrirLightbox()"
+              class="group relative aspect-[4/5] w-full max-w-[500px] overflow-hidden rounded-3xl border border-black/8 bg-white p-6 sm:p-10 shadow-[0_20px_50px_-25px_rgba(25,20,16,0.08)] select-none transition-all duration-300 cursor-zoom-in"
+            >
+
+              <img
+                [src]="p.imagenes[foto()] ?? p.imagenes[0]"
+                [alt]="p.nombre"
+                width="900"
+                height="1125"
+                fetchpriority="high"
+                decoding="async"
+                class="relative z-10 h-full w-full object-contain drop-shadow-[0_25px_35px_rgba(25,20,16,0.16)] transition-transform duration-150 ease-out pointer-events-none will-change-transform"
+                [style.transform-origin]="zoomX() + '% ' + zoomY() + '%'"
+                [style.transform]="zoomActivo() ? 'scale(2.2)' : 'scale(1)'"
+              />
+
+              @if (p.nuevo) {
+                <span class="pointer-events-none absolute left-4 top-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-[#191410] px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C8A96A] shadow-lg backdrop-blur-md">
+                  <span class="size-1.5 rounded-full bg-[#C8A96A] animate-pulse"></span>
+                  Nuevo
+                </span>
+              }
+
+              <!-- Botón / Badge de Zoom -->
+              <button
+                type="button"
+                (click)="abrirLightbox(); $event.stopPropagation()"
+                class="absolute right-4 top-4 z-20 flex items-center gap-1.5 rounded-full border border-black/8 bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#191410] shadow-sm backdrop-blur transition-all duration-200 hover:border-[#C8A96A] hover:bg-[#191410] hover:text-[#C8A96A] active:scale-95"
+                [class.opacity-0]="zoomActivo()"
+              >
+                <svg class="size-3.5 text-[#C8A96A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                <span>Zoom</span>
+              </button>
+
+              <!-- Hint sutil para ampliar en pantalla completa -->
+              <div
+                class="pointer-events-none absolute bottom-3 inset-x-0 text-center text-[10px] font-medium tracking-wider text-black/40 transition-opacity duration-200"
+                [class.opacity-0]="zoomActivo()"
+              >
+                Click para pantalla completa
+              </div>
+            </div>
+          </div>
+
+          <!-- Perfil Sensorial en Desktop (Debajo de la vitrina de la imagen) -->
+          @if (p.acordes?.length || p.clima) {
+            <div class="mt-8 hidden lg:flex flex-col gap-6 w-full max-w-[500px]">
+              <ng-container *ngTemplateOutlet="perfilSensorial; context: { p: p }"></ng-container>
+            </div>
+          }
+        </div>
+
+        <!-- Columna de Información Editorial y Compra -->
+        <div class="flex flex-col">
+          <!-- Eyebrow & Brand -->
+          <div>
+            <div class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#8a6d42]">
+              <span>{{ p.marca }}</span>
+              <span class="size-1 rounded-full bg-[#C8A96A]"></span>
+              <span>{{ p.tipo }}</span>
+              @if (p.genero) {
+                <span class="size-1 rounded-full bg-[#C8A96A]"></span>
+                <span>{{ p.genero }}</span>
+              }
+            </div>
+
+            <h1 class="mt-2.5 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-medium leading-[1.08] tracking-tight text-[#191410]">
+              {{ p.nombre }}
+            </h1>
+
+            <div class="mt-4 flex items-center gap-2">
+              <div class="h-0.5 w-10 bg-[#C8A96A]"></div>
+              <div class="h-0.5 w-2 bg-[#C8A96A]/40"></div>
+            </div>
+          </div>
+
+          @if (p.descripcion) {
+            <p class="mt-5 text-sm sm:text-base leading-relaxed text-neutral-600 max-w-prose">
+              {{ p.descripcion }}
+            </p>
+          }
+
+          <!-- Acordes / Familias olfativas -->
+          @if (p.etiquetas?.length) {
+            <div class="mt-5 flex flex-wrap gap-2">
+              @for (e of p.etiquetas; track e) {
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-black/8 bg-[#efe9e0]/80 px-3.5 py-1 text-[11px] font-medium text-[#191410] shadow-2xs backdrop-blur-xs">
+                  <span class="size-1 rounded-full bg-[#C8A96A]"></span>
+                  {{ e }}
+                </span>
+              }
+            </div>
+          }
+
+          <!-- Bloque de Precio y Medida: El perfume completo es el principal -->
+          <div class="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-black/8 bg-white/70 p-4 sm:p-5 shadow-2xs backdrop-blur-sm">
+            @if (modoCompra() === 'completo' && p.completo?.precioBs) {
+              <div class="flex flex-col">
+                <span class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6d42]">Botella Completa Sellada</span>
+                <div class="flex items-baseline gap-2 mt-0.5">
+                  <span class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#191410]">Bs {{ p.completo?.precioBs }}</span>
+                  <span class="text-xs text-neutral-600 font-sans">({{ p.completo?.ml || 100 }} ml frasco original)</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full border border-[#C8A96A]/60 bg-[#191410] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C8A96A] shadow-xs">
+                  Frasco Sellado {{ p.completo?.ml || 100 }} ml
+                </span>
+              </div>
+            } @else if (modoCompra() === 'decant' && elegido(); as v) {
+              <div class="flex flex-col">
+                <span class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6d42]">Precio Decant</span>
+                <div class="flex items-baseline gap-2 mt-0.5">
+                  <span class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#191410]">Bs {{ v.precioBs }}</span>
+                  <span class="text-xs text-neutral-600 font-sans">(Bs {{ porMlTexto(v) }}/ml)</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-[#191410] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#C8A96A] shadow-xs">
+                  <svg class="size-3 text-[#C8A96A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l1 6H5l1-6Z"/><path d="M5 9v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M10 13h4"/></svg>
+                  Decant {{ v.ml }} ml
+                </span>
+              </div>
+            } @else {
+              <span class="font-serif text-2xl sm:text-3xl text-[#6d5228]">Consultar por WhatsApp</span>
+            }
+          </div>
+
+          <!-- Selector de Formato: El perfume completo es el principal y luego los decants -->
+          @if (vols().length) {
+            <div class="mt-7 space-y-3.5">
+              <div class="flex items-center justify-between">
+                <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6d42]">Selecciona el formato</p>
+                <span class="text-[11px] text-neutral-500 font-sans">Frasco Sellado o Decants de Muestra</span>
+              </div>
+
+              <!-- 1. PRINCIPAL: Botella Completa Original Sellada -->
+              @if (p.completo?.precioBs) {
+                <button
+                  type="button"
+                  (click)="seleccionarCompleto()"
+                  [attr.aria-pressed]="modoCompra() === 'completo'"
+                  class="group relative flex w-full items-center justify-between rounded-2xl border p-3.5 sm:p-4 transition-all duration-200 active:scale-[0.98] cursor-pointer text-left"
+                  [class.border-[#C8A96A]]="modoCompra() === 'completo'"
+                  [class.bg-[#191410]]="modoCompra() === 'completo'"
+                  [class.text-white]="modoCompra() === 'completo'"
+                  [class.shadow-[0_12px_28px_-8px_rgba(200,169,106,0.35)]]="modoCompra() === 'completo'"
+                  [class.border-black/10]="modoCompra() !== 'completo'"
+                  [class.bg-white/85]="modoCompra() !== 'completo'"
+                  [class.hover:border-[#C8A96A]/60]="modoCompra() !== 'completo'"
+                  [class.hover:bg-white]="modoCompra() !== 'completo'"
+                >
+                  <div class="flex items-center gap-3.5">
+                    <div
+                      class="grid size-12 place-items-center rounded-xl border transition-colors shrink-0"
+                      [class.border-[#C8A96A]/40]="modoCompra() === 'completo'"
+                      [class.bg-white/10]="modoCompra() === 'completo'"
+                      [class.text-[#C8A96A]]="modoCompra() === 'completo'"
+                      [class.border-black/8]="modoCompra() !== 'completo'"
+                      [class.bg-[#efe9e0]/80]="modoCompra() !== 'completo'"
+                      [class.text-[#8a6d42]]="modoCompra() !== 'completo'"
+                    >
+                      <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 3h6v3H9z"/><path d="M7 6h10v3H7z"/><path d="M6 9h12v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9z"/><path d="M12 13v4"/>
+                      </svg>
+                    </div>
+
+                    <div class="min-w-0">
+                      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                        <span class="font-serif text-base sm:text-lg font-bold" [class.text-[#C8A96A]]="modoCompra() === 'completo'" [class.text-[#191410]]="modoCompra() !== 'completo'">
+                          Botella Completa ({{ p.completo?.ml || 100 }} ml)
+                        </span>
+                        <span
+                          class="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider shrink-0"
+                          [class.bg-[#C8A96A]/25]="modoCompra() === 'completo'"
+                          [class.text-[#C8A96A]]="modoCompra() === 'completo'"
+                          [class.bg-[#efe9e0]]="modoCompra() !== 'completo'"
+                          [class.text-[#8a6d42]]="modoCompra() !== 'completo'"
+                        >
+                          Caja sellada
+                        </span>
+                      </div>
+                      <p class="text-xs" [class.text-white/75]="modoCompra() === 'completo'" [class.text-neutral-500]="modoCompra() !== 'completo'">
+                        Presentación original completa con atomizador y celofán de fábrica
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col items-end pl-3 shrink-0">
+                    <span class="font-serif text-xl sm:text-2xl font-bold" [class.text-white]="modoCompra() === 'completo'" [class.text-[#191410]]="modoCompra() !== 'completo'">
+                      Bs {{ p.completo?.precioBs }}
+                    </span>
+                    <span class="text-[10px] uppercase tracking-wider font-semibold" [class.text-[#C8A96A]]="modoCompra() === 'completo'" [class.text-[#8a6d42]]="modoCompra() !== 'completo'">
+                      {{ modoCompra() === 'completo' ? '✓ Seleccionado' : 'Elegir botella' }}
+                    </span>
+                  </div>
+                </button>
+              }
+
+              <!-- 2. SECUNDARIO: Decants Artesanales de Muestra -->
+              <div class="rounded-2xl border border-black/8 bg-white/70 p-3.5 sm:p-4 shadow-2xs backdrop-blur-xs">
+                <div class="flex items-center justify-between mb-2.5 px-0.5">
+                  <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+                    <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+                    O prueba en Decants (Atomizador de vidrio)
+                  </span>
+                  <span class="text-[10px] text-neutral-500 font-sans">Muestras para llevar</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 sm:gap-2.5">
+                  @for (v of vols(); track v.ml) {
+                    <button
+                      type="button"
+                      (click)="seleccionarDecant(v.ml)"
+                      [attr.aria-label]="'Decant de ' + v.ml + ' mililitros, Bs ' + v.precioBs"
+                      [attr.aria-pressed]="modoCompra() === 'decant' && sel() === v.ml"
+                      class="group relative flex flex-col items-center justify-center rounded-xl border p-2.5 sm:py-3 transition-all duration-200 active:scale-95 text-center cursor-pointer"
+                      [class.border-[#C8A96A]]="modoCompra() === 'decant' && sel() === v.ml"
+                      [class.bg-[#191410]]="modoCompra() === 'decant' && sel() === v.ml"
+                      [class.text-white]="modoCompra() === 'decant' && sel() === v.ml"
+                      [class.shadow-[0_8px_20px_-8px_rgba(200,169,106,0.35)]]="modoCompra() === 'decant' && sel() === v.ml"
+                      [class.border-black/10]="modoCompra() !== 'decant' || sel() !== v.ml"
+                      [class.bg-white]="modoCompra() !== 'decant' || sel() !== v.ml"
+                      [class.hover:border-[#C8A96A]/60]="modoCompra() !== 'decant' || sel() !== v.ml"
+                      [class.hover:bg-[#fbfaf7]]="modoCompra() !== 'decant' || sel() !== v.ml"
+                    >
+                      <div class="flex items-center gap-1">
+                        <span class="font-serif text-base sm:text-lg font-bold" [class.text-[#C8A96A]]="modoCompra() === 'decant' && sel() === v.ml" [class.text-[#191410]]="modoCompra() !== 'decant' || sel() !== v.ml">{{ v.ml }} ml</span>
+                        @if (modoCompra() === 'decant' && sel() === v.ml) {
+                          <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+                        }
+                      </div>
+                      <span class="mt-0.5 text-xs font-semibold" [class.text-white/85]="modoCompra() === 'decant' && sel() === v.ml" [class.text-[#8a6d42]]="modoCompra() !== 'decant' || sel() !== v.ml">Bs {{ v.precioBs }}</span>
+                    </button>
+                  }
+                </div>
+              </div>
+            </div>
+          } @else if (p.completo?.precioBs) {
+            <!-- Perfumes SIN Decants: Solamente el perfume completo -->
+            <div class="mt-7">
+              <div class="flex items-center justify-between mb-3">
+                <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6d42]">Presentación Disponible</p>
+                <span class="text-[11px] text-neutral-500 font-sans">Frasco Sellado Original</span>
+              </div>
+
+              <div class="flex items-center justify-between rounded-2xl border border-black/8 bg-white/90 p-4 sm:p-5 shadow-2xs backdrop-blur">
+                <div class="flex items-center gap-3.5 min-w-0">
+                  <div class="grid size-12 place-items-center rounded-xl border border-black/8 bg-[#efe9e0]/80 text-[#8a6d42] shrink-0">
+                    <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M9 3h6v3H9z"/><path d="M7 6h10v3H7z"/><path d="M6 9h12v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9z"/><path d="M12 13v4"/>
+                    </svg>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                      <span class="font-serif text-base sm:text-lg font-bold text-[#191410]">Botella Completa {{ p.completo?.ml || 100 }} ml</span>
+                      <span class="rounded-full bg-[#efe9e0] px-2 py-0.5 text-[9px] font-bold text-[#8a6d42] uppercase tracking-wider shrink-0">Caja sellada</span>
+                    </div>
+                    <p class="text-xs text-neutral-500">Frasco sellado de fábrica original en caja con celofán</p>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 pl-3">
+                  <span class="font-serif text-xl sm:text-2xl font-bold text-[#191410]">Bs {{ p.completo?.precioBs }}</span>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Selector de Cantidad -->
+          @if ((modoCompra() === 'decant' && elegido()) || p.completo?.precioBs) {
+            <div class="mt-7">
+              <div class="flex items-center justify-between mb-2.5">
+                <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-[#8a6d42]">Cantidad</p>
+                <span class="text-xs text-neutral-600 font-sans">
+                  Total: <strong class="font-serif text-base font-semibold text-[#191410]">Bs {{ ((modoCompra() === 'decant' && elegido() ? elegido()!.precioBs : (p.completo?.precioBs ?? 0))) * cantidad() }}</strong>
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="inline-flex items-center rounded-2xl border border-black/12 bg-white/80 p-1 shadow-2xs backdrop-blur">
+                  <button (click)="menos()" aria-label="Restar una unidad" class="grid size-10 place-items-center rounded-xl text-neutral-600 transition hover:bg-[#191410] hover:text-[#C8A96A] active:scale-90">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </button>
+                  <span class="w-10 text-center font-serif text-lg font-bold text-[#191410] select-none">{{ cantidad() }}</span>
+                  <button (click)="mas()" aria-label="Sumar una unidad" class="grid size-10 place-items-center rounded-xl text-neutral-600 transition hover:bg-[#191410] hover:text-[#C8A96A] active:scale-90">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </button>
+                </div>
+
+                <span class="text-[11px] text-neutral-600 font-sans">
+                  @if (modoCompra() === 'decant' && elegido(); as v) {
+                    {{ cantidad() }} {{ cantidad() === 1 ? 'decant' : 'decants' }} de {{ v.ml }} ml
+                  } @else {
+                    {{ cantidad() }} {{ cantidad() === 1 ? 'frasco sellado' : 'frascos sellados' }} ({{ p.completo?.ml || 100 }} ml)
+                  }
+                </span>
+              </div>
+            </div>
+          }
+
+          <!-- Acciones de Compra con Feedback Emil Kowalski -->
+          <div #cta class="mt-8 flex flex-col gap-3">
+            @if ((modoCompra() === 'decant' && elegido()) || p.completo?.precioBs) {
+              <button
+                type="button"
+                (click)="agregar()"
+                [class.bg-[#191410]]="!agregado()"
+                [class.text-[#C8A96A]]="!agregado()"
+                [class.bg-[#C8A96A]]="agregado()"
+                [class.text-[#191410]]="agregado()"
+                class="group relative flex w-full items-center justify-center gap-2 sm:gap-2.5 rounded-full px-4 sm:px-6 py-4 text-center text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] sm:tracking-[0.22em] shadow-md transition-all duration-300 hover:shadow-lg active:scale-[0.98] cursor-pointer overflow-hidden"
+              >
+                @if (agregado()) {
+                  <svg class="size-4 shrink-0 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>¡Añadido a tu bolsa!</span>
+                } @else {
+                  <svg class="size-4 shrink-0 text-[#C8A96A] transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                  </svg>
+                  <span>{{ (modoCompra() === 'decant' && elegido()) ? 'Añadir decant a la bolsa' : 'Añadir botella a la bolsa' }}</span>
+                }
+              </button>
+
+              <a
+                [href]="consultar()"
+                target="_blank"
+                rel="noopener"
+                class="group flex w-full items-center justify-center gap-2 sm:gap-2.5 rounded-full border border-[#C8A96A]/60 bg-white/70 px-4 sm:px-6 py-3.5 text-center text-[11px] sm:text-xs font-medium uppercase tracking-[0.14em] sm:tracking-[0.22em] text-[#6d5228] shadow-2xs backdrop-blur transition-all hover:border-[#C8A96A] hover:bg-white hover:text-[#191410] active:scale-[0.98]"
+              >
+                <svg class="size-4 shrink-0 text-[#C8A96A] transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14c-.24.68-1.39 1.3-1.92 1.38-.5.08-1.15.11-3.7-0.95-3.26-1.35-5.35-4.66-5.51-4.88-.16-.22-1.32-1.75-1.32-3.34 0-1.59.83-2.37 1.13-2.69.3-.32.65-.4 0.87-.4.22 0 .43 0 .62.01.2.01.47-.08.73.55.27.65.92 2.24 1 2.4.08.16.14.35.03.57-.11.22-.16.35-.32.54-.16.19-.34.42-.48.56-.16.16-.33.33-.14.65.19.32.84 1.38 1.8 2.24 1.24 1.1 2.28 1.44 2.61 1.6.32.16.51.14.7-.08.19-.22.81-.95 1.03-1.27.22-.32.43-.27.73-.16.3.11 1.9.9 2.23 1.06.32.16.54.24.62.38.08.14.08.81-.16 1.49z"/>
+                </svg>
+                <span>Consultar por WhatsApp</span>
+              </a>
+            } @else {
+              <a
+                [href]="consultar()"
+                target="_blank"
+                rel="noopener"
+                class="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#191410] px-4 sm:px-6 py-4 text-center text-[11px] sm:text-xs font-bold uppercase tracking-[0.14em] sm:tracking-[0.22em] text-[#C8A96A] shadow-md transition-all hover:bg-black active:scale-[0.98]"
+              >
+                <span>Consultar por WhatsApp</span>
+              </a>
+            }
+          </div>
+
+          <!-- Micro-Trust & Guarantees Strip (Awwwards/Luxury e-commerce craft) -->
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-black/8 pt-6">
+            <div class="flex items-center gap-3">
+              <div class="grid size-9 shrink-0 place-items-center rounded-xl border border-black/8 bg-white/80 text-[#8a6d42] shadow-2xs">
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[11px] font-bold text-[#191410]">Envíos a Bolivia</span>
+                <span class="text-[10px] text-neutral-600">A todo el país</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="grid size-9 shrink-0 place-items-center rounded-xl border border-black/8 bg-white/80 text-[#8a6d42] shadow-2xs">
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[11px] font-bold text-[#191410]">100% Original</span>
+                <span class="text-[10px] text-neutral-600">Perfumes auténticos</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="grid size-9 shrink-0 place-items-center rounded-xl border border-black/8 bg-white/80 text-[#8a6d42] shadow-2xs">
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-[11px] font-bold text-[#191410]">Pago Flexible</span>
+                <span class="text-[10px] text-neutral-600">QR o contra entrega</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Perfil Sensorial en Mobile (Debajo de la compra y garantías) -->
+          @if (p.acordes?.length || p.clima) {
+            <div class="mt-8 flex lg:hidden flex-col gap-6 w-full">
+              <ng-container *ngTemplateOutlet="perfilSensorial; context: { p: p }"></ng-container>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Pirámide olfativa (Architectural Sensory Cards) -->
+      @if (tieneNotas(p)) {
+        <section class="mt-20 border-t border-black/10 pt-14">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#8a6d42]">Arquitectura de la fragancia</p>
+              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-[#191410]">Pirámide Olfativa</h2>
+            </div>
+            <p class="text-xs text-neutral-600 max-w-sm">Evolución y desarrollo aromático desde el primer rocío hasta el secado final en piel.</p>
+          </div>
+
+          <div class="mt-8 grid gap-6 sm:grid-cols-3">
+            @for (nivel of niveles; track nivel.k) {
+              <div class="flex flex-col rounded-3xl border border-black/8 bg-white/70 p-6 shadow-2xs backdrop-blur-xs transition hover:border-[#C8A96A]/60 hover:bg-white">
+                <div class="flex items-center justify-between border-b border-black/6 pb-3">
+                  <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-[#191410]">{{ nivel.t }}</h3>
+                  <span class="text-[10px] font-medium tracking-wide text-[#8a6d42]">{{ nivel.duracion }}</span>
+                </div>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                  @for (nota of (p.notas?.[nivel.k] ?? []); track nota) {
+                    <span class="inline-flex items-center gap-1.5 rounded-full border border-black/6 bg-[#efe9e0]/60 px-3.5 py-1.5 text-xs font-medium text-[#191410] shadow-2xs transition hover:border-[#C8A96A] hover:bg-white">
+                      <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+                      {{ nota }}
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      @if (recomendados().length) {
+        <section class="mt-20 border-t border-black/10 pt-14">
+          <!-- Cabecera del carrusel con navegación en cápsula -->
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#8a6d42]">
+                <span>Colección Recomendada</span>
+                <span class="size-1 rounded-full bg-[#C8A96A]"></span>
+                <span>Atelier Elixir</span>
+              </div>
+              <h2 class="mt-1 font-serif text-2xl sm:text-3xl lg:text-4xl text-[#191410] tracking-tight">También te podría gustar</h2>
+              <div class="mt-3 flex items-center gap-1.5">
+                <div class="h-0.5 w-8 bg-[#C8A96A]"></div>
+                <div class="h-0.5 w-1.5 bg-[#C8A96A]/40"></div>
+              </div>
+            </div>
+
+            <!-- Controles de navegación en cápsula luxury -->
+            <div class="flex items-center gap-2 self-end sm:self-auto rounded-full border border-black/8 bg-white/80 p-1.5 shadow-2xs backdrop-blur-md">
+              <span class="px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#8a6d42] tabular-nums">
+                0{{ carruselPagina() + 1 }} <span class="text-neutral-600 font-normal">/ 0{{ gruposRecomendados().length }}</span>
+              </span>
+
+              <button
+                (click)="carruselAnterior()"
+                [disabled]="carruselPagina() === 0"
+                aria-label="Anteriores fragancias"
+                class="grid size-8 place-items-center rounded-full border border-black/8 bg-white text-neutral-700 transition-all hover:border-[#C8A96A] hover:bg-[#191410] hover:text-[#C8A96A] disabled:opacity-20 disabled:cursor-not-allowed active:scale-90 shadow-2xs"
+              >
+                <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+
+              <button
+                (click)="carruselSiguiente()"
+                [disabled]="carruselPagina() === gruposRecomendados().length - 1"
+                aria-label="Siguientes fragancias"
+                class="grid size-8 place-items-center rounded-full border border-black/8 bg-white text-neutral-700 transition-all hover:border-[#C8A96A] hover:bg-[#191410] hover:text-[#C8A96A] disabled:opacity-20 disabled:cursor-not-allowed active:scale-90 shadow-2xs"
+              >
+                <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Vista del Carrusel con deslizamiento suave -->
+          <div class="mt-8 overflow-hidden">
+            <div
+              class="flex transition-transform duration-500 ease-out"
+              [style.transform]="'translateX(-' + (carruselPagina() * 100) + '%)'"
+            >
+              @for (grupo of gruposRecomendados(); track $index) {
+                <div class="w-full shrink-0 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4">
+                  @for (r of grupo; track r.id) {
+                    @if (r.imagenes[0]) {
+                    <article class="group relative flex flex-col rounded-3xl border border-black/8 bg-white/85 p-3 sm:p-3.5 shadow-xs transition-all duration-300 hover:border-[#C8A96A]/60 hover:bg-white hover:shadow-[0_20px_45px_-18px_rgba(200,169,106,0.22)] backdrop-blur-xs overflow-hidden">
+                      <!-- Vitrina de Botella con Iluminación Estudio -->
+                      <div class="relative aspect-[4/5] sm:aspect-auto sm:h-[220px] w-full overflow-hidden rounded-2xl bg-white border border-black/5 p-3 flex items-center justify-center transition-all duration-300 group-hover:border-[#C8A96A]/40 group-hover:shadow-xs">
+
+                        <a [routerLink]="['/perfumes', r.id]" class="relative block size-full z-10">
+                          <img
+                            [src]="r.imagenes[0]"
+                            [alt]="r.nombre"
+                            width="300"
+                            height="375"
+                            loading="lazy"
+                            decoding="async"
+                            class="size-full object-contain drop-shadow-[0_12px_20px_rgba(25,20,16,0.12)] transition-transform duration-500 ease-out group-hover:scale-105 group-hover:-translate-y-1"
+                          />
+                        </a>
+
+                        @if (r.nuevo) {
+                          <span class="absolute left-2.5 top-2.5 z-20 inline-flex items-center gap-1.5 rounded-full bg-[#191410] px-2.5 py-0.5 text-[8.5px] font-bold uppercase tracking-[0.2em] text-[#C8A96A] shadow-md backdrop-blur-md">
+                            <span class="size-1 rounded-full bg-[#C8A96A] animate-pulse"></span>
+                            Nuevo
+                          </span>
+                        } @else if (r.destacado) {
+                          <span class="absolute left-2.5 top-2.5 z-20 inline-flex items-center gap-1.5 rounded-full border border-[#C8A96A]/40 bg-white/95 px-2.5 py-0.5 text-[8.5px] font-bold uppercase tracking-[0.2em] text-[#191410] shadow-xs backdrop-blur-md">
+                            ★ Destacado
+                          </span>
+                        }
+                      </div>
+
+                      <!-- Información Editorial -->
+                      <div class="mt-3 flex flex-1 flex-col px-0.5">
+                        <div class="flex items-center justify-between gap-1 text-[9px] uppercase tracking-[0.2em]">
+                          <span class="truncate font-bold text-[#8a6d42]">{{ r.marca }}</span>
+                          <span class="shrink-0 rounded-full border border-black/8 bg-black/[0.03] px-2 py-0.5 text-[8px] font-medium text-neutral-600">{{ r.tipo }}</span>
+                        </div>
+
+                        <h3 class="mt-1 font-serif text-base sm:text-lg font-medium leading-snug tracking-tight text-[#191410] transition-colors duration-200 group-hover:text-[#8a6d42] line-clamp-1" [title]="r.nombre">
+                          <a [routerLink]="['/perfumes', r.id]">{{ nombreCorto(r) }}</a>
+                        </h3>
+
+                        <!-- Bloque de Precio & Decants Disponibles -->
+                        <div class="mt-auto pt-2.5 border-t border-black/6">
+                          @if (r.completo?.precioBs && r.completo.precioBs > 0) {
+                            <!-- PRINCIPAL: Perfume Original / Frasco Completo -->
+                            <div class="flex items-baseline justify-between gap-1">
+                              <div class="min-w-0">
+                                <span class="block text-[7.5px] font-bold uppercase tracking-[0.2em] text-[#8a6d42] truncate">
+                                  Perfume {{ r.completo.ml || 100 }}ml
+                                </span>
+                                <span class="font-serif text-base sm:text-lg font-semibold tracking-tight text-[#191410] whitespace-nowrap">
+                                  Bs {{ r.completo.precioBs }}
+                                </span>
+                              </div>
+                              <span class="shrink-0 rounded-full border border-black/8 bg-black/[0.03] px-2 py-0.5 text-[7.5px] font-bold uppercase tracking-[0.14em] text-neutral-600">
+                                Frasco
+                              </span>
+                            </div>
+
+                            <!-- SECUNDARIO: Decants Artesanales abajo, discretos y sin desbordar jamás -->
+                            @if (r.volumenes.length > 0) {
+                              <div class="mt-1.5 flex items-center justify-between gap-1 pt-1.5 border-t border-black/[0.04] text-[8.5px]">
+                                <span class="text-neutral-500 truncate">
+                                  Decants desde <strong class="text-[#8a6d42] font-serif font-bold">Bs {{ precioMin(r) }}</strong>
+                                </span>
+                                <div class="flex items-center gap-0.5 shrink-0">
+                                  @for (v of r.volumenes.slice(0, 3); track v.ml) {
+                                    <span class="rounded bg-[#efe9e0] px-1 py-0.5 text-[8px] font-bold text-[#191410] tabular-nums leading-none">
+                                      {{ v.ml }}ml
+                                    </span>
+                                  }
+                                </div>
+                              </div>
+                            }
+                          } @else if (r.volumenes.length > 0 && precioMin(r) > 0) {
+                            <!-- Si la fragancia solo se ofrece en decants -->
+                            <div class="flex items-baseline justify-between gap-1">
+                              <div class="min-w-0">
+                                <span class="block text-[7.5px] font-bold uppercase tracking-[0.2em] text-[#8a6d42]">
+                                  Decant Artesanal
+                                </span>
+                                <span class="font-serif text-base sm:text-lg font-semibold tracking-tight text-[#191410] whitespace-nowrap">
+                                  Bs {{ precioMin(r) }}
+                                </span>
+                              </div>
+                              <div class="flex items-center gap-0.5 shrink-0">
+                                @for (v of r.volumenes.slice(0, 3); track v.ml) {
+                                  <span class="rounded bg-[#efe9e0] px-1 py-0.5 text-[8px] font-bold text-[#191410] tabular-nums leading-none">
+                                    {{ v.ml }}ml
+                                  </span>
+                                }
+                              </div>
+                            </div>
+                          } @else {
+                            <div class="py-1">
+                              <span class="block text-[7.5px] font-bold uppercase tracking-[0.2em] text-[#8a6d42]">Disponibilidad</span>
+                              <span class="text-xs text-neutral-600 font-medium">Consultar por WhatsApp</span>
+                            </div>
+                          }
+                        </div>
+
+                        <!-- Botón Explorar -->
+                        <div class="mt-2.5">
+                          <a
+                            [routerLink]="['/perfumes', r.id]"
+                            class="flex w-full items-center justify-center gap-1.5 rounded-full border border-[#191410] bg-[#191410] py-2 text-center text-[9.5px] font-bold uppercase tracking-[0.2em] text-[#C8A96A] shadow-2xs transition-all duration-200 hover:bg-black active:scale-[0.98]"
+                          >
+                            <span>Explorar</span>
+                            <svg class="size-3 text-[#C8A96A] transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                    }
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Indicadores de barra inferior (Luxury Capsule Dots) -->
+          <div class="mt-10 flex items-center justify-center">
+            <div class="inline-flex items-center gap-2 rounded-full border border-black/8 bg-white/80 px-4 py-2 shadow-2xs backdrop-blur-xs">
+              @for (grupo of gruposRecomendados(); track $index; let i = $index) {
+                <button
+                  (click)="irACarrusel(i)"
+                  [attr.aria-label]="'Ir a grupo ' + (i + 1)"
+                  class="h-1.5 rounded-full transition-all duration-300"
+                  [class.w-8]="carruselPagina() === i"
+                  [class.bg-[#C8A96A]]="carruselPagina() === i"
+                  [class.w-2.5]="carruselPagina() !== i"
+                  [class.bg-black/15]="carruselPagina() !== i"
+                  [class.hover:bg-black/35]="carruselPagina() !== i"
+                ></button>
+              }
+            </div>
+          </div>
+        </section>
+      }
+} @else {
+      <div class="flex flex-col items-center py-24 text-center">
+        <p class="font-serif text-6xl leading-none text-[#C8A96A]">404</p>
+        <h1 class="mt-6 font-serif text-3xl text-[#191410]">No encontramos esa fragancia</h1>
+        <p class="mt-4 max-w-md leading-relaxed text-neutral-600">
+          Puede que el link esté viejo o que la fragancia ya no esté en el catálogo.
+          Te llevamos al catálogo o escribinos y la buscamos.
+        </p>
+        <div class="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+          <a
+            routerLink="/perfumes"
+            class="inline-flex items-center justify-center gap-3 rounded-full bg-[#191410] px-8 py-4 text-xs uppercase tracking-[0.25em] text-[#C8A96A] transition hover:bg-black"
+          >Ir al catálogo <span aria-hidden="true">→</span></a>
+          <a
+            href="https://wa.me/59164380547?text=Hola%20Elixir%2C%20busco%20una%20fragancia%20que%20no%20est%C3%A1%20en%20la%20web"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-3 rounded-full border border-[#191410] px-8 py-4 text-xs uppercase tracking-[0.25em] text-[#191410] transition hover:bg-[#191410]/5"
+          >Preguntar por WhatsApp</a>
+        </div>
+      </div>
+    }
+
+    <!-- Barra fija de compra: solo en celular, y solo cuando el boton real ya quedo arriba -->
+    @if (producto(); as p) {
+      @if ((modoCompra() === 'decant' && elegido()) || p.completo?.precioBs) {
+        <div
+          class="fixed inset-x-0 bottom-0 z-40 border-t border-black/10 bg-[#fbfaf7]/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-12px_32px_-24px_rgba(25,20,16,0.5)] backdrop-blur transition-transform duration-300 md:hidden"
+          [class.translate-y-full]="!barraVisible()"
+          [class.translate-y-0]="barraVisible()"
+        >
+          <div class="flex items-center gap-3">
+            <div class="min-w-0 flex-1">
+              @if (modoCompra() === 'decant' && elegido(); as v) {
+                <p class="truncate text-[10px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+                  Decant {{ v.ml }} ml · <span class="font-serif text-sm font-semibold text-[#191410]">Bs {{ v.precioBs }}</span>
+                </p>
+                @if (cantidad() > 1) {
+                  <p class="text-[10px] text-neutral-600 font-sans">{{ cantidad() }} × Bs {{ v.precioBs }} = <strong class="text-[#191410]">Bs {{ v.precioBs * cantidad() }}</strong></p>
+                }
+              } @else if (p.completo?.precioBs) {
+                <p class="truncate text-[10px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+                  Botella {{ p.completo?.ml || 100 }} ml · <span class="font-serif text-sm font-semibold text-[#191410]">Bs {{ p.completo?.precioBs }}</span>
+                </p>
+                @if (cantidad() > 1) {
+                  <p class="text-[10px] text-neutral-600 font-sans">{{ cantidad() }} × Bs {{ p.completo?.precioBs }} = <strong class="text-[#191410]">Bs {{ (p.completo?.precioBs || 0) * cantidad() }}</strong></p>
+                }
+              }
+            </div>
+            <button
+              (click)="agregar()"
+              [class.bg-[#191410]]="!agregado()"
+              [class.text-[#C8A96A]]="!agregado()"
+              [class.bg-[#C8A96A]]="agregado()"
+              [class.text-[#191410]]="agregado()"
+              class="shrink-0 rounded-full px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold shadow-sm transition-all duration-200 active:scale-95 overflow-hidden"
+            >
+              @if (agregado()) {
+                <span>¡Añadido!</span>
+              } @else {
+                <span>Añadir</span>
+              }
+            </button>
+          </div>
+        </div>
+      }
+    }
+
+    <!-- Template Reutilizable: Perfil Sensorial (Acordes Principales & Clima de Uso) -->
+    <ng-template #perfilSensorial let-p="p">
+      <!-- 01. Acordes Principales (Fragrantica Bar Chart Craft) -->
+      @if (p.acordes?.length) {
+        <div class="rounded-3xl border border-black/8 bg-white/80 p-5 sm:p-6 shadow-[0_16px_36px_-18px_rgba(25,20,16,0.08)] backdrop-blur-md">
+          <div class="flex items-center justify-between border-b border-black/6 pb-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#8a6d42]">Perfil Sensorial</span>
+              <h3 class="mt-0.5 font-serif text-lg sm:text-xl text-[#191410] font-normal">Acordes Principales</h3>
+            </div>
+            <span class="text-[10px] uppercase tracking-[0.18em] text-neutral-400 font-semibold">Fragrantica</span>
+          </div>
+
+          <div class="mt-4 flex flex-col gap-2">
+            @for (ac of p.acordes; track ac.nombre) {
+              <div class="group relative flex items-center">
+                <div
+                  class="relative flex h-8 sm:h-9 items-center justify-between rounded-xl px-3.5 shadow-xs transition-all duration-300 hover:scale-[1.015] active:scale-[0.99] cursor-default"
+                  [style.width]="ac.porcentaje + '%'"
+                  [style.min-width]="'130px'"
+                  [style.background]="'linear-gradient(90deg, ' + (ac.color || obtenerColorAcorde(ac.nombre)) + ' 0%, ' + (ac.color || obtenerColorAcorde(ac.nombre)) + 'dd 100%)'"
+                >
+                  <span class="text-[11px] font-bold uppercase tracking-[0.14em] text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] truncate pr-2">
+                    {{ ac.nombre }}
+                  </span>
+                  <span class="text-[10px] font-semibold text-white/95 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] shrink-0 tabular-nums">
+                    {{ ac.porcentaje }}%
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- 02. Clima & Momento de Uso (When to Wear) -->
+      @if (p.clima; as c) {
+        <div class="rounded-3xl border border-black/8 bg-white/80 p-5 sm:p-6 shadow-[0_16px_36px_-18px_rgba(25,20,16,0.08)] backdrop-blur-md">
+          <div class="flex items-center justify-between border-b border-black/6 pb-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#8a6d42]">Ocasión & Clima</span>
+              <h3 class="mt-0.5 font-serif text-lg sm:text-xl text-[#191410] font-normal">¿Cuándo usarlo?</h3>
+            </div>
+            <span class="text-[10px] uppercase tracking-[0.18em] text-neutral-400 font-semibold">Recomendación</span>
+          </div>
+
+          <!-- Estaciones del Año (4 Seasons) -->
+          <div class="mt-4">
+            <p class="text-[9.5px] uppercase tracking-[0.2em] font-bold text-neutral-500 mb-2.5">Estaciones del Año</p>
+            <div class="grid grid-cols-4 gap-2 text-center">
+              <!-- Invierno -->
+              <div class="flex flex-col items-center rounded-2xl border border-black/6 bg-[#fbfaf7] p-2.5 transition hover:border-[#0284c7]/40">
+                <svg class="size-5 text-[#0284c7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4-4"/>
+                </svg>
+                <span class="mt-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#191410]">Invierno</span>
+                <div class="mt-2 h-1.5 w-full rounded-full bg-black/8 overflow-hidden">
+                  <div class="h-full rounded-full bg-[#0284c7] transition-all duration-500" [style.width]="c.invierno + '%'"></div>
+                </div>
+                <span class="mt-1 text-[9.5px] font-semibold text-neutral-600 tabular-nums">{{ c.invierno }}%</span>
+              </div>
+
+              <!-- Primavera -->
+              <div class="flex flex-col items-center rounded-2xl border border-black/6 bg-[#fbfaf7] p-2.5 transition hover:border-[#16a34a]/40">
+                <svg class="size-5 text-[#16a34a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                </svg>
+                <span class="mt-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#191410]">Primavera</span>
+                <div class="mt-2 h-1.5 w-full rounded-full bg-black/8 overflow-hidden">
+                  <div class="h-full rounded-full bg-[#16a34a] transition-all duration-500" [style.width]="c.primavera + '%'"></div>
+                </div>
+                <span class="mt-1 text-[9.5px] font-semibold text-neutral-600 tabular-nums">{{ c.primavera }}%</span>
+              </div>
+
+              <!-- Verano -->
+              <div class="flex flex-col items-center rounded-2xl border border-black/6 bg-[#fbfaf7] p-2.5 transition hover:border-[#e11d48]/40">
+                <svg class="size-5 text-[#e11d48]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+                </svg>
+                <span class="mt-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#191410]">Verano</span>
+                <div class="mt-2 h-1.5 w-full rounded-full bg-black/8 overflow-hidden">
+                  <div class="h-full rounded-full bg-[#e11d48] transition-all duration-500" [style.width]="c.verano + '%'"></div>
+                </div>
+                <span class="mt-1 text-[9.5px] font-semibold text-neutral-600 tabular-nums">{{ c.verano }}%</span>
+              </div>
+
+              <!-- Otoño -->
+              <div class="flex flex-col items-center rounded-2xl border border-black/6 bg-[#fbfaf7] p-2.5 transition hover:border-[#d97706]/40">
+                <svg class="size-5 text-[#d97706]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2C8 5 5 9 5 14a7 7 0 0 0 14 0c0-5-3-9-7-12Z"/><path d="M12 7v13"/>
+                </svg>
+                <span class="mt-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#191410]">Otoño</span>
+                <div class="mt-2 h-1.5 w-full rounded-full bg-black/8 overflow-hidden">
+                  <div class="h-full rounded-full bg-[#d97706] transition-all duration-500" [style.width]="c.otono + '%'"></div>
+                </div>
+                <span class="mt-1 text-[9.5px] font-semibold text-neutral-600 tabular-nums">{{ c.otono }}%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Momento del Día (Día vs Noche) -->
+          <div class="mt-4 border-t border-black/6 pt-3.5">
+            <p class="text-[9.5px] uppercase tracking-[0.2em] font-bold text-neutral-500 mb-2.5">Momento del Día</p>
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Día -->
+              <div class="flex items-center gap-3 rounded-2xl border border-black/6 bg-[#fbfaf7] p-3">
+                <div class="grid size-9 shrink-0 place-items-center rounded-xl bg-amber-500/10 text-amber-600">
+                  <svg class="size-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.15em] text-[#191410]">
+                    <span>Día</span>
+                    <span class="text-amber-700 font-semibold tabular-nums">{{ c.dia }}%</span>
+                  </div>
+                  <div class="mt-1.5 h-1.5 w-full rounded-full bg-black/8 overflow-hidden">
+                    <div class="h-full rounded-full bg-amber-500 transition-all duration-500" [style.width]="c.dia + '%'"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Noche -->
+              <div class="flex items-center gap-3 rounded-2xl border border-black/6 bg-[#fbfaf7] p-3">
+                <div class="grid size-9 shrink-0 place-items-center rounded-xl bg-indigo-500/10 text-indigo-600">
+                  <svg class="size-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.15em] text-[#191410]">
+                    <span>Noche</span>
+                    <span class="text-indigo-700 font-semibold tabular-nums">{{ c.noche }}%</span>
+                  </div>
+                  <div class="mt-1.5 h-1.5 w-full rounded-full bg-black/8 overflow-hidden">
+                    <div class="h-full rounded-full bg-indigo-500 transition-all duration-500" [style.width]="c.noche + '%'"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </ng-template>
+  </main>
+
+  <app-site-footer />
+
+  <app-cart-drawer />
+
+  <!-- Lightbox / Modal de Alta Resolución y Zoom Profesional "como en las tiendas grandes" -->
+  @if (lightboxAbierto() && producto(); as p) {
+    <div
+      class="fixed inset-0 z-50 flex flex-col items-center justify-between bg-[#191410]/95 backdrop-blur-xl p-4 sm:p-8 select-none"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'Vista ampliada de ' + p.nombre"
+    >
+      <!-- Fondo interactivo para cerrar al hacer clic afuera -->
+      <div class="absolute inset-0 -z-10 cursor-pointer" (click)="cerrarLightbox()"></div>
+
+      <!-- Barra superior: Marca / Nombre y botón Cerrar -->
+      <div class="z-20 flex w-full max-w-5xl items-center justify-between pt-2">
+        <div class="flex items-center gap-3">
+          <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8A96A]">{{ p.marca }}</span>
+          <span class="size-1 rounded-full bg-white/20"></span>
+          <h2 class="font-serif text-sm tracking-wide text-white/90 sm:text-base">{{ p.nombre }}</h2>
+        </div>
+
+        <div class="flex items-center gap-3">
+          @if (p.imagenes.length > 1) {
+            <span class="rounded-full bg-white/10 px-3 py-1 font-mono text-xs text-white/70">
+              {{ foto() + 1 }} / {{ p.imagenes.length }}
+            </span>
+          }
+
+          <button
+            type="button"
+            (click)="cerrarLightbox()"
+            aria-label="Cerrar vista ampliada"
+            class="grid size-10 place-items-center rounded-full border border-white/15 bg-white/10 text-white/80 transition-all hover:border-[#C8A96A] hover:bg-white/20 hover:text-white active:scale-95"
+          >
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Centro: Imagen con Zoom interactivo -->
+      <div class="relative flex flex-1 items-center justify-center w-full max-w-5xl overflow-hidden py-4">
+        <!-- Flecha Anterior -->
+        @if (p.imagenes.length > 1) {
+          <button
+            type="button"
+            (click)="anteriorFoto(p.imagenes.length); $event.stopPropagation()"
+            aria-label="Foto anterior"
+            class="absolute left-2 sm:left-4 z-20 grid size-11 place-items-center rounded-full border border-white/15 bg-[#191410]/80 text-white shadow-xl backdrop-blur transition-all hover:border-[#C8A96A] hover:bg-[#C8A96A] hover:text-[#191410] active:scale-95"
+          >
+            <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+          </button>
+        }
+
+        <!-- Contenedor de la Imagen con zoom al hacer clic -->
+        <div
+          class="relative flex h-full max-h-[75vh] w-full items-center justify-center cursor-zoom-in"
+          [class.cursor-zoom-out]="lightboxZoom()"
+          (click)="toggleLightboxZoom()"
+        >
+          <img
+            [src]="p.imagenes[foto()] ?? p.imagenes[0]"
+            [alt]="p.nombre"
+            class="max-h-[75vh] max-w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)] transition-transform duration-300 ease-out"
+            [class.scale-[1.8]]="lightboxZoom()"
+            [class.scale-100]="!lightboxZoom()"
+          />
+        </div>
+
+        <!-- Flecha Siguiente -->
+        @if (p.imagenes.length > 1) {
+          <button
+            type="button"
+            (click)="siguienteFoto(p.imagenes.length); $event.stopPropagation()"
+            aria-label="Foto siguiente"
+            class="absolute right-2 sm:right-4 z-20 grid size-11 place-items-center rounded-full border border-white/15 bg-[#191410]/80 text-white shadow-xl backdrop-blur transition-all hover:border-[#C8A96A] hover:bg-[#C8A96A] hover:text-[#191410] active:scale-95"
+          >
+            <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </button>
+        }
+      </div>
+
+      <!-- Barra inferior: Miniaturas y atajos -->
+      <div class="z-20 flex flex-col items-center gap-3 pb-2">
+        @if (p.imagenes.length > 1) {
+          <div class="flex items-center gap-3 overflow-x-auto p-1 max-w-full">
+            @for (img of p.imagenes; track img; let i = $index) {
+              <button
+                type="button"
+                (click)="foto.set(i)"
+                [attr.aria-label]="'Ver miniatura ' + (i + 1)"
+                class="size-14 sm:size-16 overflow-hidden rounded-xl border-2 transition-all active:scale-95 shrink-0"
+                [class.border-[#C8A96A]]="foto() === i"
+                [class.scale-105]="foto() === i"
+                [class.shadow-[0_0_15px_rgba(200,169,106,0.4)]]="foto() === i"
+                [class.border-white/20]="foto() !== i"
+                [class.opacity-50]="foto() !== i"
+                [class.hover:opacity-100]="foto() !== i"
+              >
+                <img [src]="img" [alt]="p.nombre" class="h-full w-full object-contain p-1" />
+              </button>
+            }
+          </div>
+        }
+        <p class="text-[11px] tracking-widest text-white/50 uppercase">
+          Toca la imagen para {{ lightboxZoom() ? 'reducir' : 'ampliar' }} · Esc para salir
+        </p>
+      </div>
+    </div>
+  }
+</div>

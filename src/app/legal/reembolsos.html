@@ -1,0 +1,166 @@
+<app-site-header />
+<app-cart-drawer />
+
+<main class="min-h-screen bg-[#FBFAF7] text-[#191410] pt-28 pb-24">
+  <div class="mx-auto max-w-4xl px-6 lg:px-8">
+    
+    <!-- Breadcrumb & Header Editorial -->
+    <div class="mb-10">
+      <nav aria-label="Ruta de navegación" class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#8a6d42]">
+        <a routerLink="/" class="hover:text-[#191410] transition">Inicio</a>
+        <span class="text-neutral-400">/</span>
+        <span class="text-[#191410]">Política de Reembolsos</span>
+      </nav>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-[#C8A96A]/40 bg-[#C8A96A]/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8a6d42]">
+          <span class="size-1.5 rounded-full bg-[#C8A96A]"></span>
+          Garantía de Entrega y Calidad
+        </span>
+        <span class="text-xs text-neutral-500 font-medium">Última actualización: {{ fechaActualizacion }}</span>
+      </div>
+
+      <h1 class="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#191410] leading-tight">
+        Política de Reembolsos, Devoluciones y Garantías
+      </h1>
+      <p class="mt-4 text-base sm:text-lg leading-relaxed text-neutral-700">
+        En <strong>{{ site.nombre }}</strong> nos comprometemos a que cada fragancia llegue en perfectas condiciones a tus manos. Esta política define con precisión nuestros estándares de reposición, los supuestos de cobertura y las normas de higiene aplicables a la perfumería de autor.
+      </p>
+    </div>
+
+    <!-- Bloque de Garantía 100% -->
+    <div class="mb-12 rounded-2xl border-2 border-[#C8A96A]/50 bg-white p-6 sm:p-8 shadow-sm">
+      <div class="flex items-start gap-4">
+        <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#C8A96A] text-[#191410]" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <div>
+          <h2 class="font-serif text-xl sm:text-2xl font-normal text-[#191410]">
+            Garantía Total contra Rotura y Fuga en Envíos
+          </h2>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-neutral-700">
+            Si tu decant o frasco sufre cualquier desperfecto en el trayecto de encomienda (frasco fisurado, atomizador trabado o derrame de líquido), <strong>Elixir asume el 100% de la responsabilidad:</strong> te enviamos una reposición idéntica de inmediato sin costo adicional de flete o te reembolsamos el importe íntegro mediante transferencia bancaria o QR.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secciones Detalladas -->
+    <div class="space-y-10 text-sm sm:text-base leading-relaxed text-neutral-800">
+
+      <!-- Sección 1 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">1</span>
+          Normativa Sanitaria e Higiene en Cosméticos y Perfumería
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Por estrictas razones sanitarias, de inocuidad y control de calidad, <strong>los perfumes y decants que hayan sido abiertos, manipulados o atomizados por el cliente NO admiten devolución ni cambio por razones de preferencia olfativa subjetiva</strong> (por ejemplo: "el aroma no fijó como esperaba en mi piel", "no me agradó la nota de fondo" o "esperaba un olor diferente").
+          </p>
+          <p>
+            El propósito fundamental de los decants de 6 ml y 10 ml es precisamente ofrecer una alternativa accesible y de bajo costo para que el usuario pueda evaluar, vestir y experimentar la fragancia en su propia química corporal antes de adquirir una botella completa.
+          </p>
+        </div>
+      </section>
+
+      <!-- Sección 2 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">2</span>
+          Casos Amparados por la Garantía de Reposición o Reembolso
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Aceptamos reclamos y aplicamos la garantía de satisfacción inmediata en los siguientes supuestos:
+          </p>
+          <ul class="list-disc pl-5 space-y-2 text-neutral-700">
+            <li><strong>Rotura o daño físico en tránsito:</strong> Frasco de vidrio roto o trizado al momento de desempacar.</li>
+            <li><strong>Derrame evidente:</strong> Fuga significativa de líquido atribuible a problemas de sellado hermético durante el viaje.</li>
+            <li><strong>Fallo mecánico del atomizador:</strong> El mecanismo de pulverización no dispara o se encuentra atascado desde el primer uso.</li>
+            <li><strong>Discrepancia en el pedido:</strong> Si por error involuntario de empaque recibiste una fragancia o un volumen diferente al acordado en la confirmación de WhatsApp.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Sección 3 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">3</span>
+          Plazo y Procedimiento de Reclamación (Regla de 48 Horas)
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Para hacer efectiva la garantía, el cliente debe cumplir con el siguiente procedimiento ágil:
+          </p>
+          <ol class="list-decimal pl-5 space-y-2 text-neutral-700">
+            <li>
+              <strong>Plazo de reporte:</strong> Notificar el reclamo dentro de las <strong>48 horas hábiles</strong> posteriores a la recepción del paquete, contadas a partir del reporte de entrega del courier o encomienda.
+            </li>
+            <li>
+              <strong>Envío de evidencia a WhatsApp (+591 64380547):</strong>
+              <ul class="list-disc pl-5 mt-1 space-y-1">
+                <li>Fotografía o video corto del paquete, etiqueta y producto afectado.</li>
+                <li>Breve descripción del problema (rotura, fuga o atomizador fallado).</li>
+                <li>Código de pedido o captura del mensaje de confirmación.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Evaluación de nuestro Concierge:</strong> En un plazo menor a 24 horas hábiles revisamos la evidencia y emitimos la resolución favorable al cliente.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Sección 4 -->
+      <section class="rounded-2xl border border-black/8 bg-white p-6 sm:p-8 shadow-xs">
+        <h2 class="flex items-center gap-3 font-serif text-2xl font-normal text-[#191410]">
+          <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#C8A96A]/20 font-serif text-sm font-bold text-[#8a6d42]">4</span>
+          Opciones de Compensación al Cliente
+        </h2>
+        <div class="mt-4 space-y-3 text-neutral-700">
+          <p>
+            Una vez verificado el caso, el cliente puede elegir libremente entre:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+            <div class="rounded-xl border border-[#C8A96A]/40 bg-[#C8A96A]/5 p-4">
+              <h3 class="font-serif font-bold text-[#191410] text-base">Opción A: Reposición Inmediata</h3>
+              <p class="mt-1 text-xs text-neutral-600">
+                Despachamos un nuevo decant de sustitución de manera prioritaria en 24 horas, cubriendo Elixir la totalidad de los costos de flete de envío.
+              </p>
+            </div>
+            <div class="rounded-xl border border-neutral-200 bg-white p-4">
+              <h3 class="font-serif font-bold text-[#191410] text-base">Opción B: Reembolso Completo</h3>
+              <p class="mt-1 text-xs text-neutral-600">
+                Devolución del 100% del dinero pagado por la unidad afectada a través de transferencia bancaria directa por QR Simple en 24 a 48 horas hábiles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Navegación cruzada -->
+    <div class="mt-14 rounded-2xl border border-[#C8A96A]/30 bg-white p-6 sm:p-8">
+      <h3 class="font-serif text-lg text-[#191410] font-normal">Documentos Legales Complementarios</h3>
+      <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <a routerLink="/terminos" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Términos y Condiciones</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Uso y venta de fragancias</span>
+        </a>
+        <a routerLink="/privacidad" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Privacidad</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Tratamiento y protección de datos</span>
+        </a>
+        <a routerLink="/cookies" class="flex flex-col p-3 rounded-xl border border-neutral-200 hover:border-[#C8A96A] hover:bg-[#C8A96A]/5 transition text-left">
+          <span class="text-xs font-bold text-[#191410]">Política de Cookies</span>
+          <span class="text-[11px] text-neutral-500 mt-0.5">Almacenamiento técnico local</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<app-site-footer />
